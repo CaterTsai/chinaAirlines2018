@@ -1,0 +1,62 @@
+﻿/*#region DIV */
+div.photoFrameDiv{
+    top:20%;
+    width:80%;
+    height:55%;
+    border:20px solid white;
+}
+
+div.startTopDiv{
+    position:absolute;
+    height:20%;
+    width:100%;
+}
+
+div.startLanguageDiv{
+    position:absolute;
+    height:50%;
+    right:20px;
+    top:10%;
+}
+
+div.startCALogoDiv{
+    position:absolute;
+    width:50%;
+    height:40%;
+    right:20px;
+    top:60%;
+}
+/*#endregion */
+
+/*#region Image */
+
+img.titleCharactor
+{
+    height:80%;
+}
+
+img.btnEnter
+{
+    position:absolute;
+    top:85%;
+    width:35%;
+}
+
+img.logo
+{
+    height:80%;
+    left:20px;
+}
+
+img.language
+{
+    height:60%;
+}
+
+img.caLogo
+{
+    position:absolute;
+    height:100%;
+    right:0px;
+}
+/*#endregion */

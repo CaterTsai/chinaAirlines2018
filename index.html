@@ -1,0 +1,197 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>China-Airlines 2018</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <META HTTP-EQUIV="PRAGMA" CONTENT="NO-CACHE">
+    <META HTTP-EQUIV="EXPIRES" CONTENT="0">
+    <META HTTP-EQUIV="CACHE-CONTROL" CONTENT="NO-CACHE">
+    <link rel="stylesheet" href="assets/css/mainStyle.css" />
+    <link rel="stylesheet" href="assets/css/startPage.css" />
+    <link rel="stylesheet" href="assets/css/stagePage.css" />
+    <link rel="stylesheet" href="assets/css/gamePage.css" />
+</head>
+<body>
+    <div class="fullWrapper content">
+        <img class="fullWrapper" src="assets/img/bg.jpg" />
+        <img class="fullWrapper filter" src="assets/img/filter.jpg" />
+        <div id="startDiv" class="fullWrapper startDiv">
+            <div class="startTopDiv">
+                <img class="logo YcenterWrapper" src="assets/img/logo.png" />
+                <div class="startLanguageDiv">
+                    <img onclick="onBtnLanguageChinese()" class="language" src="assets/img/btnChineseOn.png" />
+                    <img onclick="onBtnLanguageEnglish()" class="language" src="assets/img/btnEnglishOff.png" />
+                </div>
+                <div class="startCALogoDiv">
+                    <img class="caLogo YcenterWrapper" src="assets/img/caLogo.png" />
+                </div>
+            </div>
+            <div class="photoFrameDiv shadowDiv XcenterWrapper">
+                <img class="titleCharactor centerWrapper" src="assets/img/charactor.png" />
+            </div>
+            <img class="btnEnter XcenterWrapper" src="assets/img/btnEnter.png" onclick="onBtnEnter()"/>
+        </div>
+
+        <div id="stageDiv" class="fullWrapper" style="display:none">
+            <div class="placeTopDiv">
+                <img class="titlePlace centerWrapper" src="assets/img/titlePlace.png" />
+            </div>
+            <div class="placeDiv shadowDiv XcenterWrapper">
+                <div class="gridContainerDiv centerWrapper">
+                    <div class="gridItemDiv"><img id="place0" class="placeItem" src="assets/img/placeMenu/place01.jpg" onclick="onPlaceSelect(0)"/></div>
+                    <div class="gridItemDiv"><img id="place1" class="placeItem cover" src="assets/img/placeMenu/place02.jpg" onclick="onPlaceSelect(1)"/></div>
+                    <div class="gridItemDiv"><img id="place2" class="placeItem cover" src="assets/img/placeMenu/place03.jpg" onclick="onPlaceSelect(2)"/></div>
+                    <div class="gridItemDiv"><img id="place3" class="placeItem cover" src="assets/img/placeMenu/place04.jpg" onclick="onPlaceSelect(3)"/></div>
+                    <div class="gridItemDiv"><img id="place4" class="placeItem cover" src="assets/img/placeMenu/place05.jpg" onclick="onPlaceSelect(4)"/></div>
+                    <div class="gridItemDiv"><img id="place5" class="placeItem cover" src="assets/img/placeMenu/place06.jpg" onclick="onPlaceSelect(5)"/></div>
+                    <div class="gridItemDiv"><img id="place6" class="placeItem cover" src="assets/img/placeMenu/place07.jpg" onclick="onPlaceSelect(6)"/></div>
+                    <div class="gridItemDiv"><img id="place7" class="placeItem cover" src="assets/img/placeMenu/place08.jpg" onclick="onPlaceSelect(7)"/></div>
+                    <div class="gridItemDiv"><img id="place8" class="placeItem cover" src="assets/img/placeMenu/place09.jpg" onclick="onPlaceSelect(8)"/></div>
+                    <div class="gridItemDiv"><img id="place9" class="placeItem cover" src="assets/img/placeMenu/place10.jpg" onclick="onPlaceSelect(9)"/></div>
+                </div>
+            </div>
+            <img class="btnMake XcenterWrapper" src="assets/img/btnMake.png" onclick="onBtnMake()" />
+        </div>
+
+        <div id="gameDiv" class="fullWrapper" style="display:none">
+            <div class="gameCanvasDiv">
+                <div class="canvasDiv centerWrapper shadowDiv afterFilter">
+                    <div id="gameContainer" class="gameContainer centerWrapper">
+
+                    </div>
+                </div>
+            </div>
+            <div id="gameSelectDiv" class="gameCtrlDiv">
+                <div class="gameMenuGridContainerDiv XcenterWrapper">
+                    <div><img id="btnDeco" class="gameMenuBtn" src="assets/img/btnDecoOn.png" data-itemiD="Deco" data-btnState="1" onclick="onGameMenuBtn(this)"></div>
+                    <div><img id="btnCharactor" class="gameMenuBtn" src="assets/img/btnCharactorOff.png" data-itemID="Charactor" data-btnState="0" onclick="onGameMenuBtn(this)"></div>
+                    <div><img id="btnWord" class="gameMenuBtn" src="assets/img/btnWordOff.png" data-itemID="Word" data-btnState="0" onclick="onGameMenuBtn(this)"></div>
+                    <div><img id="btnShare" class="gameMenuBtn" src="assets/img/btnShareOn.png" onclick="onGameMenuShare()"></div>
+                </div>
+                <div class="gameItemDiv">
+                    <div id="gameDecoDiv" class="itemDiv">
+                        <div id="decoGridContainerDiv" class="decoGridContainerDiv">
+                            <div><img class="itemGridBtn" src="assets/img/deco/decoXmas01.png" onclick="onAddItemBtn(this)"></div>
+                            <div><img class="itemGridBtn" src="assets/img/deco/decoXmas02.png" onclick="onAddItemBtn(this)"></div>
+                            <div><img class="itemGridBtn" src="assets/img/deco/decoXmas03.png" onclick="onAddItemBtn(this)"></div>
+                            <div><img class="itemGridBtn" src="assets/img/deco/decoXmas04.png" onclick="onAddItemBtn(this)"></div>
+                            <div><img class="itemGridBtn" src="assets/img/deco/decoXmas05.png" onclick="onAddItemBtn(this)"></div>
+                            <div><img class="itemGridBtn" src="assets/img/deco/decoXmas06.png" onclick="onAddItemBtn(this)"></div>
+                            <div><img class="itemGridBtn" src="assets/img/deco/decoXmas07.png" onclick="onAddItemBtn(this)"></div>
+                            <div><img class="itemGridBtn" src="assets/img/deco/decoXmas08.png" onclick="onAddItemBtn(this)"></div>
+                            <div><img class="itemGridBtn" src="assets/img/deco/decoNY01.png" onclick="onAddItemBtn(this)"></div>
+                            <div><img class="itemGridBtn" src="assets/img/deco/decoNY02.png" onclick="onAddItemBtn(this)"></div>
+                            <div><img class="itemGridBtn" src="assets/img/deco/decoNY03.png" onclick="onAddItemBtn(this)"></div>
+                            <div><img class="itemGridBtn" src="assets/img/deco/decoNY04.png" onclick="onAddItemBtn(this)"></div>
+                            <div><img class="itemGridBtn" src="assets/img/deco/decoHat01.png" onclick="onAddItemBtn(this)"></div>
+                            <div><img class="itemGridBtn" src="assets/img/deco/decoHat02.png" onclick="onAddItemBtn(this)"></div>
+                            <div><img class="itemGridBtn" src="assets/img/deco/decoHat03.png" onclick="onAddItemBtn(this)"></div>
+                        </div>
+                    </div>
+                    <div id="gameCharactorDiv" class="charactorDiv" style="display:none">
+                        <div id="charactorGranderDiv" class="charactorBaseDiv">
+                            <div class="granderLeftDiv">
+                                <img class="granderBtn centerWrapper" src="assets/img/btnMale.png" onclick="onGranderBtn(true)"/>
+                            </div>
+                            <div class="granderRightDiv">
+                                <img class="granderBtn centerWrapper" src="assets/img/btnFemale.png" onclick="onGranderBtn(false)"/>
+                            </div>
+                        </div>
+                        <div id="charactorItemDiv" class="charactorBaseDiv"  style="display:none">
+                            <div class="charactorItemBtnDiv">
+                                <div class="itemBtnTopDiv">
+                                    <img id="btnHead" class="charactorItemBtn centerWrapper" src="assets/img/btnHeadOn.png" data-itemiD="Head" data-btnState="1" onclick="onCharactorMenuBtn(this)"/>
+                                </div>
+                                <div class="itemBtnBottomDiv">
+                                    <img id="btnClothes" class="charactorItemBtn centerWrapper" src="assets/img/btnClothesOff.png" data-itemiD="Clothes" data-btnState="0" onclick="onCharactorMenuBtn(this)"/>
+                                </div>
+                            </div>
+                            <div id="charactorHeadMaleDiv" class="charactorItemSelectDiv" style="display:none">
+                                <div class="charactorGridContainerDiv">
+                                    <div><img class="charactorHeadGridBtn" src="assets/img/charactorMenu/male/h02.png" onclick="onChangeHead(1);"></div>
+                                    <div><img class="charactorHeadGridBtn" src="assets/img/charactorMenu/male/h03.png" onclick="onChangeHead(2);"></div>
+                                    <div><img class="charactorHeadGridBtn" src="assets/img/charactorMenu/male/h04.png" onclick="onChangeHead(3);"></div>
+                                    <div><img class="charactorHeadGridBtn" src="assets/img/charactorMenu/male/h05.png" onclick="onChangeHead(4);"></div>
+                                    <div><img class="charactorHeadGridBtn" src="assets/img/charactorMenu/male/h06.png" onclick="onChangeHead(5);"></div>
+                                    <div><img class="charactorHeadGridBtn" src="assets/img/charactorMenu/male/h01.png" onclick="onChangeHead(0);"></div>
+                                    <div></div>
+                                </div>
+                            </div>
+                            <div id="charactorClothesMaleDiv" class="charactorItemSelectDiv"  style="display:none">
+                                <div class="charactorGridContainerDiv">
+                                    <div><img class="charactorClothesGridBtn" src="assets/img/charactorMenu/male/c01.png" onclick="onChangeClothes(0);"></div>
+                                    <div><img class="charactorClothesGridBtn" src="assets/img/charactorMenu/male/c02.png" onclick="onChangeClothes(1);"></div>
+                                    <div><img class="charactorClothesGridBtn" src="assets/img/charactorMenu/male/c03.png" onclick="onChangeClothes(2);"></div>
+                                    <div><img class="charactorClothesGridBtn" src="assets/img/charactorMenu/male/c04.png" onclick="onChangeClothes(3);"></div>
+                                    <div><img class="charactorClothesGridBtn" src="assets/img/charactorMenu/male/c05.png" onclick="onChangeClothes(4);"></div>
+                                    <div><img class="charactorClothesGridBtn" src="assets/img/charactorMenu/male/c06.png" onclick="onChangeClothes(5);"></div>
+                                </div>
+                            </div>
+                            <div id="charactorHeadFemaleDiv" class="charactorItemSelectDiv" style="display:none">
+                                <div class="charactorGridContainerDiv">
+                                    <div><img class="charactorHeadGridBtn" src="assets/img/charactorMenu/female/h02.png" onclick="onChangeHead(1);"></div>
+                                    <div><img class="charactorHeadGridBtn" src="assets/img/charactorMenu/female/h03.png" onclick="onChangeHead(2);"></div>
+                                    <div><img class="charactorHeadGridBtn" src="assets/img/charactorMenu/female/h04.png" onclick="onChangeHead(3);"></div>
+                                    <div><img class="charactorHeadGridBtn" src="assets/img/charactorMenu/female/h05.png" onclick="onChangeHead(4);"></div>
+                                    <div><img class="charactorHeadGridBtn" src="assets/img/charactorMenu/female/h06.png" onclick="onChangeHead(5);"></div>
+                                    <div><img class="charactorHeadGridBtn" src="assets/img/charactorMenu/female/h07.png" onclick="onChangeHead(6);"></div>
+                                    <div><img class="charactorHeadGridBtn" src="assets/img/charactorMenu/female/h01.png" onclick="onChangeHead(0);"></div>
+                                </div>
+                            </div>
+                            <div id="charactorClothesFemaleDiv" class="charactorItemSelectDiv" style="display:none">
+                                <div class="charactorGridContainerDiv">
+                                    <div><img class="charactorClothesGridBtn" src="assets/img/charactorMenu/female/c01.png" onclick="onChangeClothes(0);"></div>
+                                    <div><img class="charactorClothesGridBtn" src="assets/img/charactorMenu/female/c02.png" onclick="onChangeClothes(1);"></div>
+                                    <div><img class="charactorClothesGridBtn" src="assets/img/charactorMenu/female/c03.png" onclick="onChangeClothes(2);"></div>
+                                    <div><img class="charactorClothesGridBtn" src="assets/img/charactorMenu/female/c04.png" onclick="onChangeClothes(3);"></div>
+                                    <div><img class="charactorClothesGridBtn" src="assets/img/charactorMenu/female/c05.png" onclick="onChangeClothes(4);"></div>
+                                    <div><img class="charactorClothesGridBtn" src="assets/img/charactorMenu/female/c06.png" onclick="onChangeClothes(5);"></div>
+                                    <div><img class="charactorClothesGridBtn" src="assets/img/charactorMenu/female/c07.png" onclick="onChangeClothes(6);"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="gameWordDiv" class="itemDiv" style="display:none">
+                        <div id="wordGridContainerDiv" class="wordGridContainerDiv">
+                            <div><img class="itemGridBtn" src="assets/img/word/wordXmas01.png" onclick="onAddItemBtn(this)"></div>
+                            <div><img class="itemGridBtn" src="assets/img/word/wordXmas02.png" onclick="onAddItemBtn(this)"></div>
+                            <div><img class="itemGridBtn" src="assets/img/word/wordXmas03.png" onclick="onAddItemBtn(this)"></div>
+                            <div><img class="itemGridBtn" src="assets/img/word/wordXmas04.png" onclick="onAddItemBtn(this)"></div>
+                            <div><img class="itemGridBtn" src="assets/img/word/wordXmas05.png" onclick="onAddItemBtn(this)"></div>
+                            <div><img class="itemGridBtn" src="assets/img/word/wordXmas06.png" onclick="onAddItemBtn(this)"></div>
+                            <div><img class="itemGridBtn" src="assets/img/word/wordNY01.png" onclick="onAddItemBtn(this)"></div>
+                            <div><img class="itemGridBtn" src="assets/img/word/wordNY02.png" onclick="onAddItemBtn(this)"></div>
+                            <div><img class="itemGridBtn" src="assets/img/word/wordNY03.png" onclick="onAddItemBtn(this)"></div>
+                            <div><img class="itemGridBtn" src="assets/img/word/wordNY04.png" onclick="onAddItemBtn(this)"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="gameShareDiv" class="gameCtrlDiv" style="display:none">
+                <div class="gameShareTitleDiv">
+                    <img class="gameShareTitle centerWrapper" src="assets/img/shareTitle.png" />
+                </div>
+                <div class="gameShareGridContainerDiv XcenterWrapper afterFilter">
+                    <div class="gameShareGridSaveDiv"><img class="gameShareBtn" src="assets/img/btnShareDownload.png"></div>
+                    <div class="gameShareGridFBDiv"><img class="gameShareBtn" src="assets/img/btnShareFB.png"></div>
+                    <div class="gameShareGridLinkDiv"><img class="gameShareBtn" src="assets/img/btnShareLink.png"></div>
+                    <div class="gameShareGridWechatDiv"><img class="gameShareBtn" src="assets/img/btnShareWeChat.png"></div>
+                    <div class="gameShareGridLineDiv"><img class="gameShareBtn" src="assets/img/btnShareLine.png"></div>
+                </div>
+            </div>
+        </div>
+
+        
+    </div>
+
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+    <script src="https://unpkg.com/konva@2.4.2/konva.min.js"></script>
+    <script src="https://cdnjs.com/libraries/hammer.js"></script>
+    <script src="assets/js/game.js"></script>
+    <script src="assets/js/main.js"></script>
+</body>
+</html>

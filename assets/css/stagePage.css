@@ -1,0 +1,64 @@
+﻿/*#region DIV */
+div.placeTopDiv
+{
+    position:absolute;
+    width:100%;
+    height:15%;
+}
+
+div.placeDiv
+{
+    position:absolute;
+    top:15%;
+    width:80%;
+    height:65%;
+    background-color:white;
+}
+
+div.gridContainerDiv
+{
+    position:absolute;
+    display:grid;
+    grid-template-columns:49% 49%;
+    grid-template-rows: 18.4% 18.4% 18.4% 18.4% 18.4%;
+    grid-column-gap:2%;
+    grid-row-gap:2%;
+    height:90%;
+    width:90%;
+
+
+}
+
+div.gridItemDiv
+{
+    width:100%;
+    height:100%;
+    background-color:black;
+}
+
+/*#endregion */
+
+/*#region Image */
+img.titlePlace
+{
+    width:40%;
+}
+
+img.btnMake
+{
+    position:absolute;
+    top:85%;
+    width:40%;
+}
+
+img.placeItem
+{
+    object-fit: cover;
+    width:100%;
+    height:100%;
+}
+
+img.cover{
+    opacity:0.5;
+}
+/*#endregion */

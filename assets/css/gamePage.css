@@ -1,0 +1,239 @@
+﻿/*#region DIV */
+
+/*#region DIV-BASE */
+
+div.gameCanvasDiv {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 55%;
+}
+
+div.canvasDiv {
+    position: absolute;
+    width: 85vmin;
+    height: 85vmin;
+    background-color: white;
+}
+
+div.gameContainer {
+    width: 90%;
+    height: 90%;
+}
+
+div.gameCtrlDiv {
+    position: absolute;
+    top: 55%;
+    width: 100%;
+    height: 45%;
+    background-color: #f5f4df;
+}
+
+div.gameMenuGridContainerDiv {
+    position: absolute;
+    width: 90%;
+    height: 20%;
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+    grid-template-rows: 100%;
+    text-align: center;
+    align-items: center;
+}
+
+div.gameItemDiv {
+    position: absolute;
+    top: 20%;
+    width: 100%;
+    height: 80%;
+}
+
+div.itemDiv {
+    width: 100%;
+    height: 100%;
+    overflow-y: scroll;
+}
+
+div.charactorDiv {
+    width: 100%;
+    height: 100%;
+}
+/*#endregion */
+
+/*#region DIV-DECO */
+div.decoGridContainerDiv {
+    display: grid;
+    grid-template-columns: 33% 33% 33%;
+    width: 90%;
+    left: 0;
+    text-align: center;
+    align-items: center;
+}
+/*#endregion */
+
+/*#region DIV-WORD */
+div.wordGridContainerDiv {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    width: 90%;
+    left: 0;
+    text-align: center;
+    align-items: center;
+}
+/*#endregion */
+
+/*#region DIV_CHARACTOR */
+div.charactorBaseDiv {
+    width: 100%;
+    height: 100%;
+}
+
+div.granderLeftDiv {
+    position: absolute;
+    top: 0;
+    right: 50%;
+    width: 30%;
+    height: 100%;
+    text-align: center;
+}
+
+div.granderRightDiv {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 30%;
+    height: 100%;
+    text-align: center;
+}
+
+div.charactorItemBtnDiv {
+    position: absolute;
+    left: 0;
+    width: 35%;
+    height: 100%;
+}
+
+div.itemBtnTopDiv {
+    position: absolute;
+    bottom: 50%;
+    width: 100%;
+    height: 40%;
+    text-align: center;
+}
+
+div.itemBtnBottomDiv {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    height: 40%;
+    text-align: center;
+}
+
+div.charactorItemSelectDiv {
+    position: absolute;
+    right: 0;
+    width: 65%;
+    height: 100%;
+    overflow-y: scroll;
+}
+
+div.charactorGridContainerDiv {
+    position: absolute;
+    top: 10%;
+    display: grid;
+    grid-template-columns: 47% 47%;
+    width: 90%;
+    grid-column-gap: 6%;
+    text-align: center;
+    align-items: center;
+}
+/*#endregion */
+
+/*#region DIV-SHARE */
+div.gameShareTitleDiv {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 20%;
+}
+
+div.gameShareGridContainerDiv {
+    position: absolute;
+    display: grid;
+    top: 20%;
+    width: 90%;
+    height: 80%;
+    grid-template-columns: 16.67% 16.67% 16.67% 16.67% 16.67% 16.67%;
+    grid-template-rows: 50% 50%;
+    grid-template-areas: "save save fb fb link link"
+                         ". wechat wechat line line .";
+    text-align: center;
+    align-items: center;
+}
+
+div.gameShareGridSaveDiv{
+    grid-area:save;
+    height:100%;
+    width:100%;
+}
+
+div.gameShareGridFBDiv{
+    grid-area:fb;
+    height:100%;
+    width:100%;
+}
+div.gameShareGridLinkDiv{
+    grid-area:link;
+    height:100%;
+    width:100%;
+}
+div.gameShareGridWechatDiv{
+    grid-area:wechat;
+    height:100%;
+    width:100%;
+}
+div.gameShareGridLineDiv{
+    grid-area:line;
+    height:100%;
+    width:100%;
+}
+/*#endregion */
+
+/*#endregion */
+/*#region Image */
+img.gameMenuBtn {
+    width: 80%;
+}
+
+img.itemGridBtn {
+    width: 80%;
+}
+
+img.granderBtn {
+    position: absolute;
+    height: 80%;
+}
+
+img.charactorItemBtn {
+    position: absolute;
+    width: 60%;
+}
+
+img.charactorHeadGridBtn {
+    width: 70%;
+    margin:8%;
+}
+
+img.charactorClothesGridBtn {
+    width: 85%;
+    margin:8%;
+}
+
+img.gameShareTitle {
+    max-height: 100%;
+    width: 80%;
+}
+
+img.gameShareBtn{
+    height:100%;
+}
+/*#endregion */
