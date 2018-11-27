@@ -78,4 +78,10 @@ img.filter
     pointer-events: none;
 }
 
+img.shadowImg{
+    -webkit-box-shadow: 8px 10px 31px -9px rgba(0,0,0,0.6);
+    -moz-box-shadow: 8px 10px 31px -9px rgba(0,0,0,0.6);
+    box-shadow: 8px 10px 31px -9px rgba(0,0,0,0.6);
+}
+
 /*#endregion */

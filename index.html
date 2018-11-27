@@ -16,8 +16,8 @@
     <link rel="stylesheet" href="assets/css/gamePage.css" />
 </head>
 <body>
-    <div class="fullWrapper content">
-        <img class="fullWrapper" src="assets/img/bg.jpg" />
+    <div id="content" class="fullWrapper content">
+        <!--<img class="fullWrapper" src="assets/img/bg.jpg" />-->
         <img class="fullWrapper filter" src="assets/img/filter.jpg" />
         <div id="startDiv" class="fullWrapper startDiv">
             <div class="startTopDiv">
@@ -30,12 +30,10 @@
                     <img class="caLogo YcenterWrapper" src="assets/img/caLogo.png" />
                 </div>
             </div>
-            <div class="photoFrameDiv shadowDiv XcenterWrapper">
-                <img class="titleCharactor centerWrapper" src="assets/img/charactor.png" />
-            </div>
+            <img class="kv centerWrapper" src="assets/img/kv.png" />
+            
             <img class="btnEnter XcenterWrapper" src="assets/img/btnEnter.png" onclick="onBtnEnter()"/>
         </div>
-
         <div id="stageDiv" class="fullWrapper" style="display:none">
             <div class="placeTopDiv">
                 <img class="titlePlace centerWrapper" src="assets/img/titlePlace.png" />
@@ -56,7 +54,6 @@
             </div>
             <img class="btnMake XcenterWrapper" src="assets/img/btnMake.png" onclick="onBtnMake()" />
         </div>
-
         <div id="gameDiv" class="fullWrapper" style="display:none">
             <div class="gameCanvasDiv">
                 <div class="canvasDiv centerWrapper shadowDiv afterFilter">
@@ -185,7 +182,6 @@
             </div>
         </div>
 
-        
     </div>
 
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>

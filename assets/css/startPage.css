@@ -6,6 +6,9 @@ div.photoFrameDiv{
     border:20px solid white;
 }
 
+div.kvDiv{
+}
+
 div.startTopDiv{
     position:absolute;
     height:20%;
@@ -58,5 +61,10 @@ img.caLogo
     position:absolute;
     height:100%;
     right:0px;
+}
+
+img.kv
+{
+    width:95%;
 }
 /*#endregion */

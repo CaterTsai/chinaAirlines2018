@@ -146,7 +146,7 @@ gameCanvas.prototype = {
 
         var group = new Konva.Group({
             x: this.width * 0.5 - charW * 0.5,
-            y: this.height * 0.5 - charH * 0.5,
+            y: this.height * 0.5 - charW * 0.5,
             width: charW,
             height: charH,
             id: objId,
@@ -155,10 +155,10 @@ gameCanvas.prototype = {
         });
 
         var box = new Konva.Rect({
-            x: 0,
+            x: charW * 0.5 - boxW * 0.5,
             y: 0,
-            width: charW,
-            height: charH,
+            width: boxW,
+            height: boxH,
             fillEnabled: false,
             stroke: "#3e5bc7",
             strokeWidth: 2,
@@ -181,8 +181,8 @@ gameCanvas.prototype = {
             name: 'clothes'
         });
 
-        var close = this.getCloseBtn(charW);
-        var scale = this.getScaleBtn(group, charW);
+        var close = this.getCharCloseBtn(charW, boxW);
+        var scale = this.getCharScaleBtn(group, box, charW, boxW);
 
         var parent = this;
         close.on('click tap', function () { parent.removeObj(objId); });
@@ -269,6 +269,18 @@ gameCanvas.prototype = {
         return close;
     },
 
+    getCharCloseBtn:function(groupW, boxW){
+        var size = this.width * 0.08;
+        var close = new Konva.Image({
+            x: (groupW - boxW) * 0.5 + (size * -0.5),
+            y: size * -0.5,
+            image: this.closeBtn,
+            width: size,
+            height: size,
+            name: 'close'
+        });
+        return close;
+    },
     getScaleBtn: function (obj, w) {
         var size = this.width * 0.08;
         
@@ -292,6 +304,46 @@ gameCanvas.prototype = {
                 objPos.y -= this.height() * 0.5;
                 
                 if (pos.x - objPos.x < this.width() || (objPos.y + obj.height()) - newY <this.height())
+                {
+                    pos = oldPos;
+                }
+                else
+                {
+                    pos.y = newY;
+                }
+                return {
+                    x: pos.x,
+                    y: pos.y
+                }
+            }
+        });
+        return scale;
+    },
+
+    getCharScaleBtn : function(obj, box, groupW, boxW)
+    {
+        var size = this.width * 0.08;
+        
+        var scale = new Konva.Image({
+            x: (groupW + boxW) * 0.5 - size * 0.5,
+            y: size * -0.5,
+            image: this.scaleBtn,
+            width: size,
+            height: size,
+            draggable: true,
+            dragOnTop: false,
+            name: 'scale',
+            dragBoundFunc: function (pos) {
+                var oldPos = box.getAbsolutePosition();
+                oldPos.x += box.width();
+                oldPos.x -= this.width() * 0.5;
+                oldPos.y -= this.height() * 0.5;
+                var newY = oldPos.y - (pos.x - oldPos.x) * (obj.height() / obj.width());
+                var objPos = box.getAbsolutePosition();
+                objPos.x -= this.width() * 0.5;
+                objPos.y -= this.height() * 0.5;
+                
+                if (pos.x - objPos.x < this.width() || (objPos.y + box.height()) - newY <this.height())
                 {
                     pos = oldPos;
                 }
@@ -362,18 +414,25 @@ gameCanvas.prototype = {
         var pAnchor = anchor.getAbsolutePosition();
         pAnchor.x += anchor.width() * 0.5;
         pAnchor.y += anchor.height() * 0.5;
-        var pImage = head.getAbsolutePosition();
 
-        var newW = pAnchor.x - pImage.x;
-        var newH = pImage.y + head.height() - pAnchor.y;
+        pOldAnchor = rect.getAbsolutePosition();
+        pOldAnchor.x += rect.width();
+        diffX = (pAnchor.x - pOldAnchor.x);
+        diffY = (pAnchor.y - pOldAnchor.y) * -1;
+        
+        var pImage = clothes.getAbsolutePosition();
+
+        var newW = clothes.width() + (diffX);
+        var newH = clothes.height() + diffY;
 
         head.width(newW);
         head.height(newH);
         clothes.width(newW);
         clothes.height(newH);
-        rect.width(newW);
-        rect.height(newH);
-        group.position({ x: pImage.x, y: pImage.y + (pAnchor.y - pImage.y) });
+        rect.width(rect.width() + diffX);
+        rect.height(rect.height() + diffY);
+        rect.position({ x: (newW - rect.width()) * 0.5, y:0})
+        group.position({ x: pImage.x - diffX * 0.5, y: pImage.y - diffY });
         group.width(newW);
         group.height(newH);
     },

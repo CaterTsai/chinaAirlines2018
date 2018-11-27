@@ -192,12 +192,26 @@ function troggleBtn(obj, val) {
 
 }
 
+function getUrlParameter() {
+    var url = new URL(window.location.href);
+    var type = get("type");
+    if(type=="blue")
+    {
+        $("#content").css({ "background-color": "#caeefb" });
+        $("#gameSelectDiv").css({ "background-color": "#caeefb" });
+    }
+}
+
+function get(name) {
+    if (name = (new RegExp('[?&]' + encodeURIComponent(name) + '=([^&]*)')).exec(location.search))
+        return decodeURIComponent(name[1]);
+}
 
 
 //---------------------------
 
 window.onload = function () {
     _gGameObj = new gameCanvas();
-
+    getUrlParameter();
     
 }
