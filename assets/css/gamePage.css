@@ -26,7 +26,7 @@ div.gameCtrlDiv {
     top: 55%;
     width: 100%;
     height: 45%;
-    background-color: #f5f4df;
+    background-color: #FDDDCB;
 }
 
 div.gameMenuGridContainerDiv {
@@ -200,8 +200,12 @@ div.gameShareGridLineDiv{
 
 /*#endregion */
 /*#region Image */
+img.btnInactive{
+    opacity:0.3;
+}
+
 img.gameMenuBtn {
-    width: 80%;
+    width: 95%;
 }
 
 img.itemGridBtn {
@@ -215,7 +219,7 @@ img.granderBtn {
 
 img.charactorItemBtn {
     position: absolute;
-    width: 60%;
+    width: 80%;
 }
 
 img.charactorHeadGridBtn {

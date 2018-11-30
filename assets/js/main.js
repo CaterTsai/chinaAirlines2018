@@ -1,5 +1,5 @@
 ﻿var _gPlaceId = 0;
-var _gGameMenuSet = ["Deco", "Charactor", "Word"];
+var _gGameMenuSet = ["Charactor", "Deco", "Word"];
 var _gGameMenuId = _gGameMenuSet[0];
 var _gCharactorMenuSet = ["Head", "Clothes"];
 var _gCharactorMenuId = _gCharactorMenuSet[0];
@@ -7,11 +7,16 @@ var _gCharactorGrander = null;
 var _gGameObj = null;
 var _gObjID = 0;
 
+var _gShowZH = true; // true:zh false:en
+var _gZhPath = "assets/img/zh";
+var _gEnPath = "assets/img/en";
+
 Number.prototype.pad = function(size) {
     var s = String(this);
     while (s.length < (size || 2)) {s = "0" + s;}
     return s;
 }
+
 
 //---------------------------
 //Game Page
@@ -50,6 +55,22 @@ function setPlace() {
 
 //---------------------------
 //Button
+function onBtnLanguageChange()
+{
+    if(_gShowZH)
+    {
+        $("#btnLanguageZH").hide();
+        $("#btnLanguageEN").show();
+    }
+    else
+    {
+        $("#btnLanguageZH").show();
+        $("#btnLanguageEN").hide();
+    }
+    _gShowZH = !_gShowZH;
+    changeLanguage();
+}
+
 function onBtnEnter() {
     $("#startDiv").hide();
     $("#stageDiv").show();
@@ -90,8 +111,6 @@ function onGameMenuBtn(obj) {
         switchSubpage(_gGameMenuId, nextID);
         _gGameMenuId = nextID;
     }
-
-    
 }
 
 function onGameMenuShare() {
@@ -173,22 +192,31 @@ function onChangeClothes(clothesId) {
     }
     _gGameObj.changeClothes(path);
 }
+//---------------------------
+
+function changeLanguage()
+{
+    var list = $('img[data-tag="language"]');
+    for(var i = 0; i < list.length; i++)
+    {
+        var path = list[i].src;
+        var filename = path.substring(path.lastIndexOf('/'));
+        if(_gShowZH)
+        {
+            filename = _gZhPath + filename;
+        }
+        else
+        {
+            filename = _gEnPath + filename;
+        }
+        list[i].src = filename;
+    }
+}
 
 function troggleBtn(obj, val) {
-    if (!obj.hasAttribute("data-btnstate")) {
-        return null;
-    }
+    
     var id = obj.id;
-    var state = obj.getAttribute("data-btnstate");
-
-    if (state == "1") {
-        obj.src = "assets/img/" + id + "Off.png";
-        obj.setAttribute("data-btnstate", "0");
-    }
-    else if (state == "0") {
-        obj.src = "assets/img/" + id + "On.png";
-        obj.setAttribute("data-btnstate", "1");
-    }
+    $("#" + id).toggleClass("btnInactive");
 
 }
 

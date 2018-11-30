@@ -11,7 +11,8 @@ div.kvDiv{
 
 div.startTopDiv{
     position:absolute;
-    height:20%;
+    top:2%;
+    height:25%;
     width:100%;
 }
 
@@ -23,11 +24,10 @@ div.startLanguageDiv{
 }
 
 div.startCALogoDiv{
-    position:absolute;
-    width:50%;
-    height:40%;
-    right:20px;
-    top:60%;
+    position: absolute;
+    width: 80%;
+    height: 4%;
+    bottom: 3%;
 }
 /*#endregion */
 
@@ -41,7 +41,7 @@ img.titleCharactor
 img.btnEnter
 {
     position:absolute;
-    top:85%;
+    top:78%;
     width:35%;
 }
 
@@ -53,18 +53,30 @@ img.logo
 
 img.language
 {
-    height:60%;
+    position:absolute;
+    height:20%;
+    top:30%;
+    right:5%;
 }
 
 img.caLogo
 {
     position:absolute;
     height:100%;
-    right:0px;
 }
 
 img.kv
 {
-    width:95%;
+    top: 15%;
+    height: 60%;
+    max-width: 100%;
+}
+
+img.mark{
+    position: absolute;
+    right: 0;
+    height: 8%;
+    top: 70%;
+
 }
 /*#endregion */
