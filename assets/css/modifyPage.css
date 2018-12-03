@@ -1,0 +1,48 @@
+﻿
+/*#region DIV */
+div.modifyCtrlDiv{
+    position:absolute;
+    width:100%;
+    height:20%;
+    bottom:0;
+}
+
+div.modifyCtrlLeft{
+    position:absolute;
+    left:0;
+    width:50%;
+    height:100%;
+}
+
+div.modifyCtrlRight{
+    position:absolute;
+    right:0;
+    width:50%;
+    height:100%;
+}
+
+/*#endregion */
+
+
+/*#region IMG */
+img.modifyBackground{
+    object-fit: cover;
+    height:100%;
+    width:100%;
+}
+
+img.modifyButton{
+    width:70%;
+}
+/*#endregion */
+
+
+/*#region CANVAS */
+canvas.modifyCanvas{
+    position:absolute;
+    top:0;
+    height:90%;
+}
+
+
+/*#endregion */

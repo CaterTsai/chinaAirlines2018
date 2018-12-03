@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="assets/css/startPage.css" />
     <link rel="stylesheet" href="assets/css/stagePage.css" />
     <link rel="stylesheet" href="assets/css/gamePage.css" />
+    <link rel="stylesheet" href="assets/css/modifyPage.css" />
 </head>
 <body>
     <div id="content" class="fullWrapper content">
@@ -92,7 +93,7 @@
                                     <div><img class="charactorHeadGridBtn" src="assets/img/charactorMenu/male/h04.png" onclick="onChangeHead(3);"></div>
                                     <div><img class="charactorHeadGridBtn" src="assets/img/charactorMenu/male/h05.png" onclick="onChangeHead(4);"></div>
                                     <div><img class="charactorHeadGridBtn" src="assets/img/charactorMenu/male/h06.png" onclick="onChangeHead(5);"></div>
-                                    <div><img class="charactorHeadGridBtn" src="assets/img/charactorMenu/male/h01.png" onclick="onChangeHead(0);"></div>
+                                    <div><img class="charactorHeadGridBtn" src="assets/img/charactorMenu/male/h01.png" onclick="onModifyHead();"></div>
                                     <div></div>
                                 </div>
                             </div>
@@ -114,7 +115,7 @@
                                     <div><img class="charactorHeadGridBtn" src="assets/img/charactorMenu/female/h05.png" onclick="onChangeHead(4);"></div>
                                     <div><img class="charactorHeadGridBtn" src="assets/img/charactorMenu/female/h06.png" onclick="onChangeHead(5);"></div>
                                     <div><img class="charactorHeadGridBtn" src="assets/img/charactorMenu/female/h07.png" onclick="onChangeHead(6);"></div>
-                                    <div><img class="charactorHeadGridBtn" src="assets/img/charactorMenu/female/h01.png" onclick="onChangeHead(0);"></div>
+                                    <div><img class="charactorHeadGridBtn" src="assets/img/charactorMenu/female/h01.png" onclick="onModifyHead();"></div>
                                 </div>
                             </div>
                             <div id="charactorClothesFemaleDiv" class="charactorItemSelectDiv" style="display:none">
@@ -178,12 +179,29 @@
                 </div>
             </div>
         </div>
-
+        <div id="modifyDiv" class="fullWrapper" style="display:none">
+            <img id="modifyBG" class="modifyBackground XcenterWrapper" src="assets/img/background/place01.jpg">
+            <img id="headCoverMale" src="assets/img/maleHeadCover.png" style="display:none"/>
+            <img id="headCoverFemale" src="assets/img/femaleHeadCover.png" style="display:none" />
+            <canvas id="modifyCanvas" class="modifyCanvas XcenterWrapper" width="800" height="800"></canvas>
+            <div id="modifyCtrlDiv" class="modifyCtrlDiv">
+                <div id="modifyCtrlLeft" class="modifyCtrlLeft">
+                    <label for="uploadPhoto">
+                        <img src="assets/img/zh/btnUploadPhoto.png" data-tag="language" class="centerWrapper modifyButton" />
+                    </label>
+                    <input id="uploadPhoto" type="file" style="display:none" onchange="onPhotoUpload(this);"/>
+                    
+                </div>
+                <div id="modifyCtrlRight" class="modifyCtrlRight">
+                    <img id="btnOK" src="assets/img/zh/btnOk.png" data-tag="language" class="centerWrapper modifyButton btnInactive" onclick="onBtnUploadOK()"/>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <script src="https://unpkg.com/konva@2.4.2/konva.min.js"></script>
-    <script src="https://cdnjs.com/libraries/hammer.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.js"></script>
     <script src="assets/js/game.js"></script>
     <script src="assets/js/main.js"></script>
 </body>
