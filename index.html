@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="assets/css/modifyPage.css" />
 </head>
 <body>
-    <div id="content" class="fullWrapper content">
+    <div id="content" class="content">
         <img class="fullWrapper filter" src="assets/img/filter.jpg" />
         <div id="startDiv" class="fullWrapper startDiv">
             <img class="kv XcenterWrapper" src="assets/img/kv.png" />
@@ -28,8 +28,8 @@
             </div>
             <img class="mark" src="assets/img/mark.png" />
             <img class="btnEnter XcenterWrapper" src="assets/img/zh/btnEnter.png" data-tag="language" onclick="onBtnEnter()"/>
-            <div class="startCALogoDiv XcenterWrapper">
-                <img class="caLogo XcenterWrapper" src="assets/img/caLogo2.png" />
+            <div class="startCALogoDiv">
+                <img class="caLogo" src="assets/img/caLogo2.png" />
             </div>
         </div>
         <div id="stageDiv" class="fullWrapper" style="display:none">
@@ -56,7 +56,6 @@
             <div class="gameCanvasDiv">
                 <div class="canvasDiv centerWrapper shadowDiv afterFilter">
                     <div id="gameContainer" class="gameContainer centerWrapper">
-
                     </div>
                 </div>
             </div>
@@ -65,7 +64,7 @@
                     <div><img id="btnCharactor" data-tag="language" class="gameMenuBtn" src="assets/img/zh/btnCharactor.png" data-itemID="Charactor" onclick="onGameMenuBtn(this)"></div>
                     <div><img id="btnDeco"  data-tag="language"class="gameMenuBtn btnInactive" src="assets/img/zh/btnDeco.png" data-itemiD="Deco" onclick="onGameMenuBtn(this)"></div>
                     <div><img id="btnWord" data-tag="language" class="gameMenuBtn btnInactive" src="assets/img/zh/btnWord.png" data-itemID="Word" onclick="onGameMenuBtn(this)"></div>
-                    <div><img id="btnShare" data-tag="language" class="gameMenuBtn" src="assets/img/zh/btnShare.png" onclick="onGameMenuShare()"></div>
+                    <div><img id="btnShare" data-tag="language" class="gameMenuBtn" src="assets/img/zh/btnShare.png" data-itemID="Share" onclick="onGameMenuBtn(this)"></div>
                 </div>
                 <div class="gameItemDiv">
                     <div id="gameCharactorDiv" class="charactorDiv">
@@ -80,10 +79,10 @@
                         <div id="charactorItemDiv" class="charactorBaseDiv" style="display:none">
                             <div class="charactorItemBtnDiv">
                                 <div class="itemBtnTopDiv">
-                                    <img id="btnHead" class="charactorItemBtn centerWrapper" src="assets/img/btnHead.png" data-itemiD="Head"onclick="onCharactorMenuBtn(this)" />
+                                    <img id="btnHead" class="charactorItemBtn centerWrapper" src="assets/img/zh/btnHead.png" data-tag="language" data-itemiD="Head" onclick="onCharactorMenuBtn(this)" />
                                 </div>
                                 <div class="itemBtnBottomDiv">
-                                    <img id="btnClothes" class="charactorItemBtn centerWrapper btnInactive" src="assets/img/btnClothes.png" data-itemiD="Clothes" onclick="onCharactorMenuBtn(this)" />
+                                    <img id="btnClothes" class="charactorItemBtn centerWrapper btnInactive" src="assets/img/zh/btnClothes.png" data-tag="language" data-itemiD="Clothes" onclick="onCharactorMenuBtn(this)" />
                                 </div>
                             </div>
                             <div id="charactorHeadMaleDiv" class="charactorItemSelectDiv" style="display:none">
@@ -140,14 +139,15 @@
                             <div><img class="itemGridBtn" src="assets/img/deco/decoXmas05.png" onclick="onAddItemBtn(this)"></div>
                             <div><img class="itemGridBtn" src="assets/img/deco/decoXmas06.png" onclick="onAddItemBtn(this)"></div>
                             <div><img class="itemGridBtn" src="assets/img/deco/decoXmas07.png" onclick="onAddItemBtn(this)"></div>
-                            <div><img class="itemGridBtn" src="assets/img/deco/decoXmas08.png" onclick="onAddItemBtn(this)"></div>
-                            <div><img class="itemGridBtn" src="assets/img/deco/decoNY01.png" onclick="onAddItemBtn(this)"></div>
-                            <div><img class="itemGridBtn" src="assets/img/deco/decoNY02.png" onclick="onAddItemBtn(this)"></div>
+                            <div><img class="itemGridBtn" src="assets/img/deco/decoXmas08Menu.png" onclick="onAddItemBtn(this)"></div>
+                            <div><img class="itemGridBtn" src="assets/img/deco/decoNY01Menu.png" onclick="onAddItemBtn(this)"></div>
+                            <div><img class="itemGridBtn" src="assets/img/deco/decoNY02.png" onclick="onAddItemBtn(this, true)"></div>
                             <div><img class="itemGridBtn" src="assets/img/deco/decoNY03.png" onclick="onAddItemBtn(this)"></div>
                             <div><img class="itemGridBtn" src="assets/img/deco/decoNY04.png" onclick="onAddItemBtn(this)"></div>
-                            <div><img class="itemGridBtn" src="assets/img/deco/decoHat01.png" onclick="onAddItemBtn(this)"></div>
-                            <div><img class="itemGridBtn" src="assets/img/deco/decoHat02.png" onclick="onAddItemBtn(this)"></div>
-                            <div><img class="itemGridBtn" src="assets/img/deco/decoHat03.png" onclick="onAddItemBtn(this)"></div>
+                            <div><img class="itemGridBtn" src="assets/img/deco/decoNY05.png" onclick="onAddItemBtn(this, true)"></div>
+                            <div><img class="itemGridBtn" src="assets/img/deco/decoHat01.png" onclick="onAddItemBtn(this, true)"></div>
+                            <div><img class="itemGridBtn" src="assets/img/deco/decoHat02.png" onclick="onAddItemBtn(this, true)"></div>
+                            <div><img class="itemGridBtn" src="assets/img/deco/decoHat03.png" onclick="onAddItemBtn(this, true)"></div>
                         </div>
                     </div>
                     <div id="gameWordDiv" class="itemDiv" style="display:none">
@@ -157,34 +157,42 @@
                             <div><img class="itemGridBtn" src="assets/img/word/wordXmas03.png" onclick="onAddItemBtn(this)"></div>
                             <div><img class="itemGridBtn" src="assets/img/word/wordXmas04.png" onclick="onAddItemBtn(this)"></div>
                             <div><img class="itemGridBtn" src="assets/img/word/wordXmas05.png" onclick="onAddItemBtn(this)"></div>
-                            <div><img class="itemGridBtn" src="assets/img/word/wordXmas06.png" onclick="onAddItemBtn(this)"></div>
                             <div><img class="itemGridBtn" src="assets/img/word/wordNY01.png" onclick="onAddItemBtn(this)"></div>
                             <div><img class="itemGridBtn" src="assets/img/word/wordNY02.png" onclick="onAddItemBtn(this)"></div>
                             <div><img class="itemGridBtn" src="assets/img/word/wordNY03.png" onclick="onAddItemBtn(this)"></div>
                             <div><img class="itemGridBtn" src="assets/img/word/wordNY04.png" onclick="onAddItemBtn(this)"></div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div id="gameShareDiv" class="gameCtrlDiv" style="display:none">
-                <div class="gameShareTitleDiv">
-                    <img class="gameShareTitle centerWrapper" data-tag="language" src="assets/img/zh/shareTitle.png" />
-                </div>
-                <div class="gameShareGridContainerDiv XcenterWrapper afterFilter">
-                    <div class="gameShareGridSaveDiv"><img class="gameShareBtn" src="assets/img/btnShareDownload.png"></div>
-                    <div class="gameShareGridFBDiv"><img class="gameShareBtn" src="assets/img/btnShareFB.png"></div>
-                    <div class="gameShareGridLinkDiv"><img class="gameShareBtn" src="assets/img/btnShareLink.png"></div>
-                    <div class="gameShareGridWechatDiv"><img class="gameShareBtn" src="assets/img/btnShareWeChat.png"></div>
-                    <div class="gameShareGridLineDiv"><img class="gameShareBtn" src="assets/img/btnShareLine.png"></div>
+                    <div id="gameShareDiv" class="itemDiv" style="display:none">
+                        <div class="gameShareTitleDiv">
+                            <img class="gameShareTitle centerWrapper" data-tag="language" src="assets/img/zh/shareTitle.png" />
+                        </div>
+                        <div class="gameShareGridContainerDiv XcenterWrapper afterFilter">
+                            <div class="gameShareGridSaveDiv"><img class="gameShareBtn" src="assets/img/btnShareDownload.png" onclick="onBtnDownload()"></div>
+                            <div class="gameShareGridFBDiv"><img class="gameShareBtn" src="assets/img/btnShareFB.png" onclick="onBtnFacebook()"></div>
+                            <div class="gameShareGridLinkDiv"><img class="gameShareBtn copy-button" data-clipboard-action="copy" src="assets/img/btnShareLink.png" onclick="onBtnLink()"></div>
+                            <div class="gameShareGridWechatDiv"><img class="gameShareBtn" src="assets/img/btnShareWeChat.png"></div>
+                            <div class="gameShareGridLineDiv"><img class="gameShareBtn" src="assets/img/btnShareLine.png" onclick="onBtnLine()"></div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <div id="modifyDiv" class="fullWrapper" style="display:none">
+        <div id="modifyDiv" class="fullWrapper"  style="display:none">
             <img id="modifyBG" class="modifyBackground XcenterWrapper" src="assets/img/background/place01.jpg">
             <img id="headCoverMale" src="assets/img/maleHeadCover.png" style="display:none"/>
             <img id="headCoverFemale" src="assets/img/femaleHeadCover.png" style="display:none" />
             <canvas id="modifyCanvas" class="modifyCanvas XcenterWrapper" width="800" height="800"></canvas>
-            <div id="modifyCtrlDiv" class="modifyCtrlDiv">
+            <div id="modifyPhotoCtrlDiv" class="modifyPhotoCtrlDiv">
+                <img src="assets/img/btnClose.png" class="modifyClose XcenterWrapper" onclick="onBtnCloseModify()"/>
+                <div class="modifyPhotoCtrlContainerDiv">
+                    <div><img src="assets/img/btnZoomIn.png" class="btnPhotoCtrl" onclick="onBtnZoom(10)"></div>
+                    <div><img src="assets/img/btnZoomOut.png" class="btnPhotoCtrl" onclick="onBtnZoom(-10)"></div>
+                    <div><img src="assets/img/btnCounterclockwise.png" class="btnPhotoCtrl" onclick="onBtnRotate(-2)"></div>
+                    <div><img src="assets/img/btnClockwise.png" class="btnPhotoCtrl" onclick="onBtnRotate(2)"></div>
+                </div>
+            </div>
+            <div id="modifyCtrlBottomDiv" class="modifyCtrlBottomDiv">
                 <div id="modifyCtrlLeft" class="modifyCtrlLeft">
                     <label for="uploadPhoto">
                         <img src="assets/img/zh/btnUploadPhoto.png" data-tag="language" class="centerWrapper modifyButton" />
@@ -201,7 +209,9 @@
 
     <script src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
     <script src="https://unpkg.com/konva@2.4.2/konva.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.js"></script>
+    <script src="assets/js/detectmobilebrowser.js"></script>
     <script src="assets/js/game.js"></script>
     <script src="assets/js/main.js"></script>
 </body>

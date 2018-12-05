@@ -38,31 +38,53 @@ html, body {
     -webkit-transform: translateY(-50%);
 }
 
-.fullWrapper 
-{
-    position:absolute;
-    width:100%;
-    height:100%;
-    top:0;
-    left:0;
+.fullWrapper {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
 }
 
-.beforeFilter{
-    z-index:3;
+.beforeFilter {
+    z-index: 3;
 }
 
-.afterFilter{
-    z-index:20;
+.afterFilter {
+    z-index: 20;
 }
 /*#endregion */
 
 /*#region DIV */
-div.content {
-    overflow-x:hidden;
-    background-color:#FDDDCB;
+
+
+@media only screen and (min-width: 769px) {
+    div.content {
+        overflow-x: hidden;
+        background-color: #FDDDCB;
+        width: 35%;
+        height:100%;
+        position: absolute;
+        left: 50%;
+        -ms-transform: translateX(-50%);
+        -webkit-transform: translateX(-50%);
+    }
 }
 
-div.shadowDiv{
+@media only screen and (min-width: 0px) and (max-width: 768px) {
+    div.content {
+        overflow-x: hidden;
+        background-color: #FDDDCB;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+    }
+}
+
+
+div.shadowDiv {
     -webkit-box-shadow: 8px 10px 31px -9px rgba(0,0,0,0.6);
     -moz-box-shadow: 8px 10px 31px -9px rgba(0,0,0,0.6);
     box-shadow: 8px 10px 31px -9px rgba(0,0,0,0.6);
@@ -71,14 +93,13 @@ div.shadowDiv{
 /*#endregion */
 
 /*#region Image */
-img.filter
-{
-    z-index:10;
+img.filter {
+    z-index: 10;
     mix-blend-mode: multiply;
     pointer-events: none;
 }
 
-img.shadowImg{
+img.shadowImg {
     -webkit-box-shadow: 8px 10px 31px -9px rgba(0,0,0,0.6);
     -moz-box-shadow: 8px 10px 31px -9px rgba(0,0,0,0.6);
     box-shadow: 8px 10px 31px -9px rgba(0,0,0,0.6);

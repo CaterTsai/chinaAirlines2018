@@ -32,10 +32,15 @@ gameCanvas.prototype = {
             this.width = w;
             this.height = h;
 
-            this.layer = new Konva.Layer();
             this.bgLayer = new Konva.Layer();
+            this.layer = new Konva.Layer();
+            this.topLayer = new Konva.Layer();
+            this.coverLayer = new Konva.Layer();
+            this.coverLayer.listening(false);
             this.stage.add(this.bgLayer);
             this.stage.add(this.layer);
+            this.stage.add(this.topLayer);
+            this.stage.add(this.coverLayer);
 
             this.closeBtn = new Image();
             this.scaleBtn = new Image();
@@ -50,19 +55,40 @@ gameCanvas.prototype = {
             this.defaultFemaleHead.src = "assets/img/charactor/female/h02.png";
             this.defaultMaleClothes.src = "assets/img/charactor/male/c01.png";
             this.defaultFemaleClothes.src = "assets/img/charactor/female/c01.png";
+
+            parent = this;
+            this.bgLayer.on('click tap', function () { parent.disableAllCtrl() });
+
+            var cover = new Image();
+            var clayer = this.coverLayer;
+            cover.onload = function(){
+                var img = new Konva.Image({
+                    image: cover,
+                    x: 0,
+                    y: 0,
+                    width: w,
+                    height: h,
+                    listening:false
+                });
+                clayer.add(img);
+                clayer.draw();
+            }
+            cover.src = "assets/img/photoFrame.png";
         }
     },
 
     setPlace: function (id) {
         var bgImg = new Image();
         var layer = this.bgLayer;
-        var w = this.width;
-        var h = this.height;
+        var w = this.width * 0.93;
+        var h = this.height * 0.93;
+        var posX = (this.width - w) * 0.5;
+        var posY = (this.height - h) * 0.5;
         bgImg.onload = function () {
             var bgObj = new Konva.Image(
             {
-                x: 0,
-                y: 0,
+                x: posX,
+                y: posY,
                 image: bgImg,
                 width: w,
                 height: h
@@ -72,62 +98,83 @@ gameCanvas.prototype = {
             layer.draw();
         }
         bgImg.src = "assets/img/place/" + id + ".jpg";
-    },
+    },    
 
-    addObject: function (objId, obj) {
+    addObject: function (objId, obj, onTop) {
 
+        if (typeof onTop == 'undefined') {
+            onTop = false;
+        }
+
+        var objWidth = obj.width;
+        var objHeight = obj.height;
+
+        if (objWidth > this.width) {
+            objWidth = this.width * 0.8;
+            objHeight = objWidth * obj.height / obj.width;
+        }
         var group = new Konva.Group({
-            x: this.width * 0.5 - obj.clientWidth * 0.5,
-            y: this.height * 0.5 - obj.clientHeight * 0.5,
-            width: obj.clientWidth,
-            height: obj.clientHeight,
+            x: this.width * 0.5 - objWidth * 0.5,
+            y: this.height * 0.5 - objHeight * 0.5,
+            width: objWidth,
+            height: objHeight,
             id: objId,
-            name: "item",
-            draggable: true
+            name: "item"
         });
 
         var box = new Konva.Rect({
             x: 0,
             y: 0,
-            width: obj.clientWidth,
-            height: obj.clientHeight,
-            fillEnabled: false,
+            width: objWidth,
+            height: objHeight,
+            fillEnabled: true,
             stroke: "#3e5bc7",
             strokeWidth: 2,
-            name: 'rect'
+            name: 'rect',
+            draggable: true
         });
         var img = new Konva.Image({
             image: obj,
             x: 0,
             y: 0,
-            width: obj.clientWidth,
-            height: obj.clientHeight,
+            width: objWidth,
+            height: objHeight,
             name: 'element'
         });
 
-        var close = this.getCloseBtn(obj.clientWidth);
-        var scale = this.getScaleBtn(group, obj.clientWidth);
+        var close = this.getCloseBtn(objWidth);
+        var scale = this.getScaleBtn(group, objWidth);
 
         var parent = this;
-        close.on('click tap', function () { parent.removeObj(objId); });
-        scale.on('mousedown touchstart', function () { parent.stopDrag(objId); })
+        close.on('click tap', function () { parent.removeObj(close); });
+        scale.on('mousedown touchstart', function () { parent.stopDrag(scale); })
         scale.on('dragmove', function () {
-            parent.scaleObj(this, objId);
-            parent.layer.draw();
+            parent.scaleObj(this, scale);
+            scale.getLayer().draw();
         });
-        scale.on('dragend', function () { parent.startDrag(objId); });
-        group.on('click touchstart', function () { parent.onObjectClick(this); })
+        scale.on('dragend', function () { parent.startDrag(scale); });
+        box.on('dragmove', function () {
+            parent.dragRect(box);
+            box.getLayer().draw();
+        });
+        box.on('click touchstart', function () { parent.onObjectClick(group); });
         group.add(img);
         group.add(box);
         group.add(close);
         group.add(scale);
-        this.layer.add(group);
-        this.layer.draw();
 
+        if (onTop) {
+            this.topLayer.add(group);
+            this.topLayer.draw();
+        }
+        else {
+            this.layer.add(group);
+            this.layer.draw();
+        }
         this.ctrlObjId = objId;
     },
 
-    addCharObject: function (objId, isMale) {
+    addCharObject: function (objId, isMale, onSelect, onRemove) {
         head = null;
         clothes = null;
         if (isMale) {
@@ -139,60 +186,66 @@ gameCanvas.prototype = {
             clothes = this.defaultFemaleClothes;
         }
 
-        var charW = this.width * 0.8;
+        var charW = this.width * 0.7;
         var charH = charW * (clothes.height / clothes.width);
-        var boxW = this.width * 0.5;
+        var boxW = this.width * 0.3;
         var boxH = charH;
 
         var group = new Konva.Group({
-            x: this.width * 0.5 - charW * 0.5,
-            y: this.height * 0.5 - charW * 0.5,
-            width: charW,
-            height: charH,
+            x: this.width * 0.5 - boxW * 0.5,
+            y: this.height * 0.5 - boxH * 0.5,
+            width: boxW,
+            height: boxH,
             id: objId,
-            name: "charactor",
-            draggable: true
+            name: "charactor"
         });
 
         var box = new Konva.Rect({
-            x: charW * 0.5 - boxW * 0.5,
+            x: 0,
             y: 0,
             width: boxW,
             height: boxH,
-            fillEnabled: false,
+            fillEnabled: true,
             stroke: "#3e5bc7",
             strokeWidth: 2,
-            name: 'rect'
+            name: 'rect',
+            draggable: true
         });
         var head = new Konva.Image({
             image: head,
-            x: 0,
+            x: (boxW - charW) * 0.5,
             y: 0,
             width: charW,
             height: charH,
-            name: 'head'
+            name: 'head',
+            listening: false
         });
         var clothes = new Konva.Image({
             image: clothes,
-            x: 0,
+            x: (boxW - charW) * 0.5,
             y: 0,
             width: charW,
             height: charH,
-            name: 'clothes'
+            name: 'clothes',
+            listening: false
         });
 
-        var close = this.getCharCloseBtn(charW, boxW);
-        var scale = this.getCharScaleBtn(group, box, charW, boxW);
+        var close = this.getCharCloseBtn(boxW, boxW);
+        var scale = this.getCharScaleBtn(clothes, box, boxW, boxW);
 
         var parent = this;
-        close.on('click tap', function () { parent.removeObj(objId); });
-        scale.on('mousedown touchstart', function () { parent.stopDrag(objId); })
+        close.on('click tap', function () { parent.removeObj(close, onRemove); });
+        scale.on('mousedown touchstart', function () { parent.stopDrag(scale); })
         scale.on('dragmove', function () {
-            parent.scaleCharObj(this, objId);
+            parent.scaleCharObj(this);
             parent.layer.draw();
         });
-        scale.on('dragend', function () { parent.startDrag(objId); });
-        group.on('click touchstart', function () { parent.onObjectClick(this); })
+        scale.on('dragend', function () { parent.startDrag(scale); });
+        box.on('dragmove', function () {
+            parent.dragRect(box);
+            parent.layer.draw();
+        });
+        box.on('click touchstart', function () { parent.onObjectClick(group, isMale, onSelect); });
         group.add(clothes);
         group.add(head);
         group.add(box);
@@ -204,21 +257,24 @@ gameCanvas.prototype = {
         this.ctrlObjId = objId;
     },
 
-    changeHead: function (headPath) {
-        var newHead = new Image();
-
+    changeHead: function (objId, headPath) {
         var parent = this;
+
+
+        var newHead = new Image();
         newHead.onload = function () {
-            var obj = parent.layer.findOne('#' + parent.ctrlObjId);
+            var obj = parent.layer.findOne('#' + objId);
             var head = obj.findOne('.head');
+            
             var newHeadObj = new Konva.Image(
             {
-                x: 0,
+                x: (obj.width() - head.width()) * 0.5,
                 y: 0,
                 image: newHead,
                 width: head.width(),
                 height: head.height(),
-                name: 'head'
+                name: 'head',
+                listening: false
             });
             head.destroy();
 
@@ -228,25 +284,24 @@ gameCanvas.prototype = {
         newHead.src = headPath;
     },
 
-    changeClothes: function (clothesPath) {
+    changeClothes: function (objId, clothesPath) {
+        var parent = this;
         var newClothes = new Image();
 
-        var parent = this;
         newClothes.onload = function () {
-            var obj = parent.layer.findOne('#' + parent.ctrlObjId);
+            var obj = parent.layer.findOne('#' + objId);
             var clothes = obj.findOne('.clothes')
             var newClothesObj = new Konva.Image(
             {
-                x: 0,
+                x: (obj.width() - clothes.width()) * 0.5,
                 y: 0,
                 image: newClothes,
                 width: clothes.width(),
                 height: clothes.height(),
-                name: 'clothes'
+                name: 'clothes',
+                listening: false
             });
             clothes.destroy();
-
-            
 
             obj.add(newClothesObj);
             var head = obj.findOne('.head');
@@ -269,7 +324,7 @@ gameCanvas.prototype = {
         return close;
     },
 
-    getCharCloseBtn:function(groupW, boxW){
+    getCharCloseBtn: function (groupW, boxW) {
         var size = this.width * 0.08;
         var close = new Konva.Image({
             x: (groupW - boxW) * 0.5 + (size * -0.5),
@@ -281,9 +336,10 @@ gameCanvas.prototype = {
         });
         return close;
     },
+
     getScaleBtn: function (obj, w) {
         var size = this.width * 0.08;
-        
+
         var scale = new Konva.Image({
             x: w - size * 0.5,
             y: size * -0.5,
@@ -302,13 +358,11 @@ gameCanvas.prototype = {
                 var objPos = obj.getAbsolutePosition();
                 objPos.x -= this.width() * 0.5;
                 objPos.y -= this.height() * 0.5;
-                
-                if (pos.x - objPos.x < this.width() || (objPos.y + obj.height()) - newY <this.height())
-                {
+
+                if (pos.x - objPos.x < this.width() || (objPos.y + obj.height()) - newY < this.height()) {
                     pos = oldPos;
                 }
-                else
-                {
+                else {
                     pos.y = newY;
                 }
                 return {
@@ -320,10 +374,9 @@ gameCanvas.prototype = {
         return scale;
     },
 
-    getCharScaleBtn : function(obj, box, groupW, boxW)
-    {
+    getCharScaleBtn: function (obj, box, groupW, boxW) {
         var size = this.width * 0.08;
-        
+
         var scale = new Konva.Image({
             x: (groupW + boxW) * 0.5 - size * 0.5,
             y: size * -0.5,
@@ -342,13 +395,11 @@ gameCanvas.prototype = {
                 var objPos = box.getAbsolutePosition();
                 objPos.x -= this.width() * 0.5;
                 objPos.y -= this.height() * 0.5;
-                
-                if (pos.x - objPos.x < this.width() || (objPos.y + box.height()) - newY <this.height())
-                {
+
+                if (pos.x - objPos.x < this.width() || (objPos.y + box.height()) - newY < this.height()) {
                     pos = oldPos;
                 }
-                else
-                {
+                else {
                     pos.y = newY;
                 }
                 return {
@@ -360,33 +411,49 @@ gameCanvas.prototype = {
         return scale;
     },
 
-    onObjectClick: function (obj) {
+    onObjectClick: function (obj, isMale, callback) {
         if (!obj.draggable()) {
             this.disableAllCtrl();
             this.setCtrl(obj, true);
             obj.moveToTop();
+        }
 
+        if (typeof callback != "undefined") {
+            callback(obj.id(), isMale);
         }
     },
 
-    removeObj: function (objId) {
-        var group = this.layer.find('#' + objId);
+    removeObj: function (obj, callback) {
+        var layer = obj.getLayer();
+        var group = obj.getParent();
+
         group.destroy();
-        this.layer.draw();
+        layer.draw();
+
+        if (typeof callback != "undefined") {
+            callback();
+        }
     },
 
-    stopDrag: function (objId) {
-        var group = this.layer.findOne('#' + objId);
+    dragRect: function (obj) {
+        var group = obj.getParent();
+        var clothes = group.findOne('.clothes');
+        var rectPos = obj.getAbsolutePosition();
+        group.position(rectPos);
+    },
+
+    stopDrag: function (obj) {
+        var group = obj.getParent();
         group.draggable(false);
     },
 
-    startDrag: function (objId) {
-        var group = this.layer.findOne('#' + objId);
+    startDrag: function (obj) {
+        var group = obj.getParent();
         group.draggable(true);
     },
 
-    scaleObj: function (anchor, objId) {
-        var group = this.layer.findOne('#' + objId);
+    scaleObj: function (anchor, obj) {
+        var group = obj.getParent();
         var image = group.findOne('.element');
         var rect = group.findOne('.rect');
         var pAnchor = anchor.getAbsolutePosition();
@@ -406,35 +473,36 @@ gameCanvas.prototype = {
         group.height(newH);
     },
 
-    scaleCharObj: function (anchor, objId) {
-        var group = this.layer.findOne('#' + objId);
+    scaleCharObj: function (obj) {
+        var group = obj.getParent();
         var head = group.findOne('.head');
         var clothes = group.findOne('.clothes');
         var rect = group.findOne('.rect');
-        var pAnchor = anchor.getAbsolutePosition();
-        pAnchor.x += anchor.width() * 0.5;
-        pAnchor.y += anchor.height() * 0.5;
+        var pAnchor = obj.getAbsolutePosition();
+        pAnchor.x += obj.width() * 0.5;
+        pAnchor.y += obj.height() * 0.5;
 
         pOldAnchor = rect.getAbsolutePosition();
         pOldAnchor.x += rect.width();
+
         diffX = (pAnchor.x - pOldAnchor.x);
         diffY = (pAnchor.y - pOldAnchor.y) * -1;
-        
-        var pImage = clothes.getAbsolutePosition();
+
 
         var newW = clothes.width() + (diffX);
         var newH = clothes.height() + diffY;
-
+        var newBoxW = rect.width() + diffX;
+        var newBoxH = rect.height() + diffY;
         head.width(newW);
         head.height(newH);
         clothes.width(newW);
         clothes.height(newH);
-        rect.width(rect.width() + diffX);
-        rect.height(rect.height() + diffY);
-        rect.position({ x: (newW - rect.width()) * 0.5, y:0})
-        group.position({ x: pImage.x - diffX * 0.5, y: pImage.y - diffY });
-        group.width(newW);
-        group.height(newH);
+
+        group.position({ x: group.x(), y: group.y() - diffY });
+        group.width(newBoxW);
+        group.height(newBoxH);
+        rect.width(newBoxW);
+        rect.height(newBoxH);
     },
 
     setCtrl: function (obj, isEnable) {
@@ -443,13 +511,13 @@ gameCanvas.prototype = {
         var scale = obj.findOne('.scale');
 
         if (isEnable) {
-            rect.show();
+            rect.strokeEnabled(true);
             close.show();
             scale.show();
             obj.draggable(true);
         }
         else {
-            rect.hide();
+            rect.strokeEnabled(false);
             close.hide();
             scale.hide();
             obj.draggable(false);
@@ -462,6 +530,16 @@ gameCanvas.prototype = {
             this.setCtrl(allObj[i], false);
         }
         this.layer.draw();
+
+        allObj = this.topLayer.getChildren();
+        for (var i = 0; i < allObj.length; i++) {
+            this.setCtrl(allObj[i], false);
+        }
+        this.topLayer.draw();
     },
 
+    getResult: function () {
+        var result = this.stage.toDataURL({ "mimeType": "image/jpeg", "pixelRatio":3});
+        return result;
+    }
 }

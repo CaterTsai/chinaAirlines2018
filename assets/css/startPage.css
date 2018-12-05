@@ -25,9 +25,10 @@ div.startLanguageDiv{
 
 div.startCALogoDiv{
     position: absolute;
-    width: 80%;
+    width: 50%;
     height: 4%;
     bottom: 3%;
+    right:20px;
 }
 /*#endregion */
 
@@ -41,13 +42,13 @@ img.titleCharactor
 img.btnEnter
 {
     position:absolute;
-    top:78%;
+    top:80%;
     width:35%;
 }
 
 img.logo
 {
-    height:80%;
+    height:70%;
     left:20px;
 }
 
@@ -62,7 +63,7 @@ img.language
 img.caLogo
 {
     position:absolute;
-    height:100%;
+    width:100%;
 }
 
 img.kv

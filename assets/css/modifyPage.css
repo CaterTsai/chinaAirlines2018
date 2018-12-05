@@ -1,6 +1,6 @@
 ﻿
 /*#region DIV */
-div.modifyCtrlDiv{
+div.modifyCtrlBottomDiv{
     position:absolute;
     width:100%;
     height:20%;
@@ -21,6 +21,25 @@ div.modifyCtrlRight{
     height:100%;
 }
 
+div.modifyPhotoCtrlDiv{
+    position:absolute;
+    right:3%;
+    width:20%;
+    height:50%;
+}
+
+div.modifyPhotoCtrlContainerDiv{
+    position: absolute;
+    top:35%;
+    width: 100%;
+    height: 70%;
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: 25% 25% 25% 25%;
+    text-align: center;
+    align-items: center;
+}
+
 /*#endregion */
 
 
@@ -33,6 +52,15 @@ img.modifyBackground{
 
 img.modifyButton{
     width:70%;
+}
+
+img.modifyClose{
+    height: 12%;
+    top: 5%;
+}
+
+img.btnPhotoCtrl{
+    width:60%;
 }
 /*#endregion */
 
