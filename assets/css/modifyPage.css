@@ -68,8 +68,7 @@ img.btnPhotoCtrl{
 /*#region CANVAS */
 canvas.modifyCanvas{
     position:absolute;
-    top:0;
-    height:90%;
+    height:200%;
 }
 
 

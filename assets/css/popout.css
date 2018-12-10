@@ -1,0 +1,38 @@
+﻿
+/*#region DIV */
+div.popout{
+    background:rgba(0, 0, 0, 0.8);
+}
+
+div.popoutText{
+    top:5%;
+    width:90%;
+    height:90%;
+}
+
+/*#endregion */
+
+/*#region OTHER */
+p{
+    color:#ffffff;
+    text-align:center;
+    font-size:150%;
+}
+pre{
+    height:80%;
+    overflow-y:auto;
+    white-space: pre-wrap;
+    padding:10px;
+    font-size:100%;
+    color:#ffffff;
+}
+
+img.popoutClose{
+    position:absolute;
+    top:2%;
+    right:5%;
+    width:8%;
+}
+
+
+/*#endregion */

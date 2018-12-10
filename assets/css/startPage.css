@@ -30,6 +30,14 @@ div.startCALogoDiv{
     bottom: 3%;
     right:20px;
 }
+
+div.popoutBtnDiv{
+    position:absolute;
+    width:calc(50% - 20px);
+    bottom:3%;
+    text-align:center;
+    font-size:10px;
+}
 /*#endregion */
 
 /*#region Image */
@@ -55,7 +63,7 @@ img.logo
 img.language
 {
     position:absolute;
-    height:20%;
+    height:12%;
     top:30%;
     right:5%;
 }
@@ -81,3 +89,7 @@ img.mark{
 
 }
 /*#endregion */
+
+a{
+    color:#808080;
+}

@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="assets/css/stagePage.css" />
     <link rel="stylesheet" href="assets/css/gamePage.css" />
     <link rel="stylesheet" href="assets/css/modifyPage.css" />
+    <link rel="stylesheet" href="assets/css/popout.css" />
 </head>
 <body>
     <div id="content" class="content">
@@ -28,6 +29,9 @@
             </div>
             <img class="mark" src="assets/img/mark.png" />
             <img class="btnEnter XcenterWrapper" src="assets/img/zh/btnEnter.png" data-tag="language" onclick="onBtnEnter()"/>
+            <div class="popoutBtnDiv">
+                <a href="#" onclick="onBtnPopoutCR()">版權宣告</a>｜<a href="#" onclick="onBtnPopoutPrivacy()">隱私權政策</a>
+            </div>
             <div class="startCALogoDiv">
                 <img class="caLogo" src="assets/img/caLogo2.png" />
             </div>
@@ -178,7 +182,7 @@
                 </div>
             </div>
         </div>
-        <div id="modifyDiv" class="fullWrapper"  style="display:none">
+        <div id="modifyDiv" class="fullWrapper noScrollY"  style="display:none">
             <img id="modifyBG" class="modifyBackground XcenterWrapper" src="assets/img/background/place01.jpg">
             <img id="headCoverMale" src="assets/img/maleHeadCover.png" style="display:none"/>
             <img id="headCoverFemale" src="assets/img/femaleHeadCover.png" style="display:none" />
@@ -204,6 +208,18 @@
                     <img id="btnOK" src="assets/img/zh/btnOk.png" data-tag="language" class="centerWrapper modifyButton btnInactive" onclick="onBtnUploadOK()"/>
                 </div>
             </div>
+        </div>
+
+        <div id="popout" class="fullWrapper popout" style="display:none">
+            <div id="copyright" class="popoutText XcenterWrapper" style="display:none">
+                <p>版權宣告</p>
+                <pre id="crText"></pre>
+            </div>
+            <div id="privacy" class="popoutText XcenterWrapper" style="display:none">
+                <p>隱私權保護政策</p>
+                <pre id="privacyText"></pre>
+            </div>
+            <img class="popoutClose" src="assets/img/btnClose.png" onclick="onBtnPopoutClose()" />
         </div>
     </div>
 

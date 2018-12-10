@@ -46,6 +46,10 @@ html, body {
     left: 0;
 }
 
+.noScrollY{
+    overflow-y:hidden;
+}
+
 .beforeFilter {
     z-index: 3;
 }
@@ -94,7 +98,7 @@ div.shadowDiv {
 
 /*#region Image */
 img.filter {
-    z-index: 10;
+    
     mix-blend-mode: multiply;
     pointer-events: none;
 }

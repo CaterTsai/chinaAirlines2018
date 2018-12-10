@@ -646,6 +646,25 @@ function onBtnLine() {
         shareLine();
     }
 }
+
+function onBtnPopoutCR()
+{
+    $("#popout").show();
+    $("#copyright").show();
+}
+
+function onBtnPopoutPrivacy()
+{
+    $("#popout").show();
+    $("#privacy").show();
+}
+
+function onBtnPopoutClose()
+{
+    $("#popout").hide();
+    $("#copyright").hide();
+    $("#privacy").hide();
+}
 //---------------------------
 
 function changeLanguage() {
@@ -684,6 +703,28 @@ function get(name) {
         return decodeURIComponent(name[1]);
 }
 
+function loadCR() {
+
+    $.get(
+		"assets/copyright.txt",
+		function (data) {
+		    $("#crText").text(data);
+		},
+		"text"
+	);
+}
+
+function loadPrivacy() {
+
+    $.get(
+		"assets/privacy.txt",
+		function (data) {
+		    $("#privacyText").text(data);
+		},
+		"text"
+	);
+}
+
 function initCopy()
 {
     _gClipboard = new ClipboardJS('.copy-button', {
@@ -699,4 +740,7 @@ window.onload = function () {
     getUrlParameter();
     initModifyCanvas();
     initCopy();
+
+    loadCR();
+    loadPrivacy();
 }
