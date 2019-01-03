@@ -18,10 +18,9 @@ var _gEnPath = "assets/img/en";
 var _gPhotoPath = "s/shareImg/";
 var _gPhotoGUID = "";
 var _gPhotoShareUrl = "";
-var _gUrl = "http://events2.artgital.com:8899/";
+var _gPhotoUrl = "";
+var _gUrl = "https://happyholidays.china-airlines.com/";
 var _gRedirectionUrl = _gUrl + "redirection.html";
-
-
 var _gClipboard;
 
 //Modify Page
@@ -31,14 +30,16 @@ var _gSelectClouthId = 0;
 var _gFaceDefaultWidth = 300;
 var _gFaceMaximumWidth = _gFaceDefaultWidth * 10;
 var _gCanvasSize = { 'male': [800, 800], 'female': [720, 760] };
-var _gMaleClip = [398, 99, 44, 54];
-var _gFemaleClip = [361, 111, 41, 59];
+var _gMaleClip = [397, 88, 59, 88];
+var _gFemaleClip = [361, 105, 73, 94];
 var _gFaceInfo = { 'x': 0, 'y': 0, 'width': 0, 'height': 0, 'rotate': 0 };
 var _gFaceInfoBackup = _gFaceInfo;
+var _gFaceRotateTmp;
 var _gCTX = null;
 var _gBody = null;
 var _gHead = null;
 var _gFace = null;
+var _gFaceFilter = null;
 var _gHammer = null;
 
 Number.prototype.pad = function (size) {
@@ -64,6 +65,7 @@ function toSUploadPhoto(photo, callback) {
             if (result["result"]) {
                 _gPhotoGUID = result["guid"];
                 _gPhotoShareUrl = result["link"];
+                _gPhotoUrl = _gUrl + 's/shareImg/' + _gPhotoGUID + ".jpg";
                 if (typeof callback != "undefined") {
                     callback();
                 }
@@ -79,6 +81,8 @@ function setPlace() {
     _gGameObj.setPlace(name);
 
     $("#modifyBG").attr('src', "assets/img/background/" + name + ".jpg");
+
+    gtaEvent("Country", (_gPlaceId + 1));
 }
 
 //---------------------------
@@ -171,7 +175,6 @@ function onCharactorSelect(id, isMale) {
 //Modify Page
 function enableModifyCtrl() {
 
-
     if (_gIsInitalBefore) {
         return;
     }
@@ -193,8 +196,12 @@ function enableModifyCtrl() {
         updateCanvas();
     });
 
+    _gHammer.on('rotatestart', function (e) {
+        _gFaceRotateTmp = e.rotation;
+    });
+
     _gHammer.on('rotate', function (e) {
-        _gFaceInfo['rotate'] = e.rotation;
+        _gFaceInfo['rotate'] = _gFaceInfoBackup['rotate'] + (e.rotation - _gFaceRotateTmp);
         updateCanvas();
     });
 
@@ -254,10 +261,33 @@ function initModifyCanvas() {
 function addFace(src) {
     _gFace = new Image();
     _gFace.onload = function () {
+        applyFilter(this);
 
+    }
+    _gFace.src = src;
+    _gCanModify = true;
+}
+
+function applyFilter(img) {
+    var tmpCanv = document.createElement("canvas");
+    tmpCanv.id = "tmpCanvas";
+    tmpCanv.width = img.width;
+    tmpCanv.height = img.height;
+    var ctx = tmpCanv.getContext("2d");
+
+    ctx.drawImage(img, 0, 0);
+    var data = ctx.getImageData(0, 0, tmpCanv.width, tmpCanv.height);
+    JSManipulate.gain.filter(data, { gain: 0.4, bias: 0.75 });
+    JSManipulate.rgbadjust.filter(data, { red: 1.1, green: 1.05, blue: 1.0 });
+
+    ctx.putImageData(data, 0, 0);
+    var newImg = tmpCanv.toDataURL();
+
+    _gFaceFilter = new Image();
+    _gFaceFilter.onload = function () {
         enableModifyCtrl();
         _gFaceInfo['width'] = _gFaceDefaultWidth;
-        _gFaceInfo['height'] = _gFaceDefaultWidth * (_gFace.height / _gFace.width);
+        _gFaceInfo['height'] = _gFaceDefaultWidth * (_gFaceFilter.height / _gFaceFilter.width);
         if (_gCharactorGrander) {
             _gFaceInfo['x'] = _gCanvasSize['male'][0] * 0.5;
         }
@@ -265,13 +295,18 @@ function addFace(src) {
             _gFaceInfo['x'] = _gCanvasSize['female'][0] * 0.5;
         }
         _gFaceInfo['y'] = _gFaceInfo['height'] * 0.5;
-        _gFaceInfo['rotate'] = 0;
-        _gFaceInfoBackup = Object.assign({}, _gFaceInfo);
+        _gFaceInfoBackup = JSON.parse(JSON.stringify(_gFaceInfo));
 
         updateCanvas();
+
+        swal({
+            title: "完成",
+            type: "success",
+            showConfirmButton : false,
+            timer: 1000
+        });
     }
-    _gFace.src = src;
-    _gCanModify = true;
+    _gFaceFilter.src = newImg;
 }
 
 function updateCanvas() {
@@ -292,8 +327,9 @@ function updateCanvas() {
 
     _gCTX.translate(_gFaceInfo['x'], _gFaceInfo['y']);
     _gCTX.rotate(_gFaceInfo['rotate'] * Math.PI / 180);
-    _gCTX.drawImage(_gFace, _gFaceInfo['width'] * -0.5, _gFaceInfo['height'] * -0.5, _gFaceInfo['width'], _gFaceInfo['height']);
+    _gCTX.drawImage(_gFaceFilter, _gFaceInfo['width'] * -0.5, _gFaceInfo['height'] * -0.5, _gFaceInfo['width'], _gFaceInfo['height']);
     _gCTX.restore();
+
     _gCTX.drawImage(_gHead, 0, 0);
     _gCTX.drawImage(_gBody, 0, 0);
 }
@@ -316,7 +352,7 @@ function updateCanvasWithoutBody() {
 
     _gCTX.translate(_gFaceInfo['x'], _gFaceInfo['y']);
     _gCTX.rotate(_gFaceInfo['rotate'] * Math.PI / 180);
-    _gCTX.drawImage(_gFace, _gFaceInfo['width'] * -0.5, _gFaceInfo['height'] * -0.5, _gFaceInfo['width'], _gFaceInfo['height']);
+    _gCTX.drawImage(_gFaceFilter, _gFaceInfo['width'] * -0.5, _gFaceInfo['height'] * -0.5, _gFaceInfo['width'], _gFaceInfo['height']);
     _gCTX.restore();
     _gCTX.drawImage(_gHead, 0, 0);
 }
@@ -346,8 +382,7 @@ function drawEllipse(ctx, x, y, w, h) {
 
 //---------------------------
 //Share Page
-function uploadPhoto(callback)
-{
+function uploadPhoto(callback) {
     var imgData = _gGameObj.getResult();
     imgData = imgData.split(',')[1];
     toSUploadPhoto(imgData, callback);
@@ -355,29 +390,19 @@ function uploadPhoto(callback)
 
 function savePhoto() {
 
-    if(_gPhotoGUID == "")
-    {
-        return;
+    var iOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
+
+    var imgData = _gGameObj.getResult();
+    if (iOS) {
+        popoutResult(imgData);
+    }
+    else {
+        download(imgData, "cards.jpg", "image/jpeg");
     }
 
-    if(jQuery.browser.mobile)
-    {
-
-    }
-    else
-    {
-        var a = $("<a>")
-        .attr("href", _gPhotoPath + _gPhotoGUID + ".jpg")
-        .attr("download", _gPhotoGUID + ".jpg")
-        .appendTo("body");
-
-        a[0].click();
-        a.remove();
-    }
 }
 
-function shareFB()
-{
+function shareFB() {
     if (_gPhotoGUID == "") {
         return;
     }
@@ -387,22 +412,25 @@ function shareFB()
     var hashTag = encodeURIComponent("#旅人賀卡");
     var reurl = encodeURIComponent(_gRedirectionUrl);
     var share_url = "https://www.facebook.com/dialog/share?"
-        + "app_id=194996280892626"
+        + "app_id=295185771003716"
         + "&href=" + url
         + "&hashtag=" + hashTag
         + "&redirect_uri=" + reurl;
     window.location = share_url;
 }
 
-function shareWeChat()
-{
-
+function shareWeChat() {
+    savePhoto();
+    if (_gShowZH) {
+        swal("圖片儲存後，您就可以開啟WeChat分享給朋友了！");
+    }
+    else {
+        swal("You can open WeChat and share with your friends after saving this image!");
+    }
 }
 
-function shareLine()
-{
-    if(_gPhotoGUID == "")
-    {
+function shareLine() {
+    if (_gPhotoGUID == "") {
         return;
     }
 
@@ -416,6 +444,15 @@ function shareLine()
 
     window.location = url;
 }
+
+function popoutResult(resultData) {
+    $("#resultImg")[0].src = resultData;
+    $("#resultImg")[0].onload = function () {
+        $("#popout").show();
+        $("#result").show();
+    }
+}
+
 //---------------------------
 //Button
 function onBtnLanguageChange() {
@@ -446,14 +483,43 @@ function onPlaceSelect(placeId) {
 }
 
 function onBtnMake() {
-    $("#stageDiv").hide();
-    $("#gameDiv").show();
 
-    var h = $("#gameContainer").height();
-    var w = $("#gameContainer").width();
-    _gGameObj.init("gameContainer", w, h);
+    var title, text;
+    if (_gShowZH)
+    {
+        title = "地點選好就要出發囉！";
+        text = "如果你想要更換地點，你可以選擇再多玩幾次，試看看每個國家不一樣的風情吧！"
+    }
+    else
+    {
+        title = "Get ready for take-off！";
+        text = "Don't forget to play again to check out the beauty of different city themes!"
+    }
+    swal(
+        {
+            title: title,
+            text: text,
+            showConfirmButton:true,
+            showCancelButton: true
+        }).then(function(result){
+            if (result.dismiss != "cancel") {
+                $("#stageDiv").hide();
+                $("#gameDiv").show();
 
-    setPlace();
+                var h = $("#canvasDiv").height();
+                var w = $("#canvasDiv").width();
+                var size = w;
+                if (w > document.documentElement.clientWidth) {
+                    var size = document.documentElement.clientWidth * 0.8;
+
+                    $("#canvasDiv").width(size);
+                    $("#canvasDiv").height(size);
+                }
+
+                _gGameObj.init("gameContainer", size, size);
+                setPlace();
+            }
+        });
 }
 
 function onGameMenuBtn(obj) {
@@ -471,11 +537,8 @@ function onGameMenuBtn(obj) {
         if (nextID != "Share") {
             troggleBtn(obj);
         }
-
         switchSubpage(_gGameMenuId, nextID);
         _gGameMenuId = nextID;
-
-
     }
 }
 
@@ -511,6 +574,17 @@ function onAddItemBtn(obj, onTop) {
         img.src = path;
     }
 
+    var name = obj.src.substring(obj.src.lastIndexOf('/'));
+    if (_gGameMenuId == "Deco")
+    {
+        gtaEvent("item", "deco" + name);
+    }
+    else if(_gGameMenuId == "Word")
+    {
+        gtaEvent("item", "word" + name);
+    }
+    
+
 }
 
 function onGranderBtn(isMale) {
@@ -527,6 +601,14 @@ function onGranderBtn(isMale) {
     _gSelectClouthId = 0;
     showCharactorItem(_gCharactorGrander);
 
+    if (_gCharactorGrander)
+    {
+        gtaEvent("grander", "male");
+    }
+    else
+    {
+        gtaEvent("grander", "female");
+    }
 }
 
 function onChangeHead(headId) {
@@ -539,6 +621,13 @@ function onChangeHead(headId) {
             path = 'assets/img/charactor/female/h' + (headId + 1).pad(2) + '.png';
         }
         _gGameObj.changeHead(_gSelectCharactorID, path);
+
+        if (_gCharactorGrander) {
+            gtaEvent("head", "male" + (headId + 1));
+        }
+        else {
+            gtaEvent("head", "female" + (headId + 1));
+        }
     }
 
 }
@@ -547,6 +636,14 @@ function onModifyHead() {
     initModifyCanvas();
     $("#gameDiv").hide();
     $("#modifyDiv").show();
+
+    if (_gCharactorGrander) {
+        gtaEvent("head", "male-Modify");
+    }
+    else {
+        gtaEvent("head", "female-Modify");
+    }
+    
 }
 
 function onChangeClothes(clothesId) {
@@ -560,6 +657,14 @@ function onChangeClothes(clothesId) {
         }
         _gGameObj.changeClothes(_gSelectCharactorID, path);
         _gSelectClouthId = clothesId;
+
+
+        if (_gCharactorGrander) {
+            gtaEvent("Clothes", "male" + (clothesId + 1));
+        }
+        else {
+            gtaEvent("Clothes", "female" + (clothesId + 1));
+        }
     }
 }
 
@@ -587,10 +692,38 @@ function onBtnRotate(degree) {
 
 function onPhotoUpload(input) {
     if (input.files && input.files[0]) {
+
+        swal({
+            title: "處理中",
+            showConfirmButton: false,
+            allowOutsideClick: false,
+            allowEscapeKey: false,
+        });
+
+        EXIF.getData(input.files[0], function () {
+            var orientation = EXIF.getTag(this, "Orientation");
+            switch (orientation) {
+                case 3: // 180° rotate left
+                    _gFaceInfo['rotate'] = 180;
+                    break;
+
+                case 6: // 90° rotate right
+                    _gFaceInfo['rotate'] = 90;
+                    break;
+
+                case 8: // 90° rotate left
+                    _gFaceInfo['rotate'] = -90;
+                    break;
+
+                default:
+                    _gFaceInfo['rotate'] = 0;
+                    break;
+            }
+
+        });
         var reader = new FileReader();
         reader.onload = function (e) {
             addFace(e.target.result);
-            //$("#" + id).attr('src', e.target.result)
         };
         reader.readAsDataURL(input.files[0]);
 
@@ -612,30 +745,41 @@ function onBtnUploadOK() {
     $("#modifyDiv").hide();
 }
 
-function onBtnDownload()
-{
-    if (_gPhotoGUID == "")
-    {
-        uploadPhoto(savePhoto);
-    }
-    else
-    {
-        savePhoto();
-    }
+function onBtnDownload() {
+    savePhoto();
+    gtaEvent("Share", "Link");
 }
 
 function onBtnLink() {
-    alert("活動連結複製成功");
+
+    if (_gShowZH) {
+        swal("活動連結複製成功");
+    }
+    else {
+        swal("The link has been copied to your clipboard!");
+    }
+    
+    gtaEvent("Share", "Link");
 }
 
-function onBtnFacebook()
-{
+function onBtnFacebook() {
     if (_gPhotoGUID == "") {
         uploadPhoto(shareFB);
     }
-    else {
+    else {        
         shareFB();
     }
+    gtaEvent("Share", "FB");
+}
+
+function onBtnWechat() {
+    if (_gPhotoGUID == "") {
+        uploadPhoto(shareWeChat);
+    }
+    else {
+        shareWeChat();
+    }
+    gtaEvent("Share", "wechat");
 }
 
 function onBtnLine() {
@@ -645,25 +789,35 @@ function onBtnLine() {
     else {
         shareLine();
     }
+    gtaEvent("Share", "line");
 }
 
-function onBtnPopoutCR()
-{
+function onBtnRemake() {
+
+    gtaEvent("Share", "remake");
+    if (_gShowZH) {
+        window.location = _gUrl + "?from=remake";
+    }
+    else {
+        window.location = _gUrl + "?from=remake&language=en";
+    }
+}
+
+function onBtnPopoutCR() {
     $("#popout").show();
     $("#copyright").show();
 }
 
-function onBtnPopoutPrivacy()
-{
+function onBtnPopoutPrivacy() {
     $("#popout").show();
     $("#privacy").show();
 }
 
-function onBtnPopoutClose()
-{
+function onBtnPopoutClose() {
     $("#popout").hide();
     $("#copyright").hide();
     $("#privacy").hide();
+    $("#result").hide();
 }
 //---------------------------
 
@@ -690,11 +844,17 @@ function troggleBtn(obj, val) {
 }
 
 function getUrlParameter() {
+
+
     var url = new URL(window.location.href);
-    var type = get("type");
-    if (type == "blue") {
-        $("#content").css({ "background-color": "#caeefb" });
-        $("#gameSelectDiv").css({ "background-color": "#caeefb" });
+    var from = get("from");
+    if (from == "remake") {
+        $("#startDiv").hide();
+        $("#stageDiv").show();
+    }
+    var language = get("language");
+    if (language == "en") {
+        onBtnLanguageChange();
     }
 }
 
@@ -725,8 +885,7 @@ function loadPrivacy() {
 	);
 }
 
-function initCopy()
-{
+function initCopy() {
     _gClipboard = new ClipboardJS('.copy-button', {
         text: function () {
             return _gUrl;
@@ -737,10 +896,14 @@ function initCopy()
 
 window.onload = function () {
     _gGameObj = new gameCanvas();
-    getUrlParameter();
+
+    var isIE11 = !!window.MSInputMethodContext && !!document.documentMode;
+    if (!isIE11) {
+        getUrlParameter();
+    }
+
     initModifyCanvas();
     initCopy();
-
     loadCR();
     loadPrivacy();
 }

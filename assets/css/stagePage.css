@@ -23,10 +23,14 @@ div.gridContainerDiv
     grid-template-rows: 18.4% 18.4% 18.4% 18.4% 18.4%;
     grid-column-gap:2%;
     grid-row-gap:2%;
+
+    display: -ms-grid;
+    -ms-grid-columns: 49% 2% 49%;
+    -ms-grid-rows: 18.4% 2% 18.4% 2% 18.4% 2% 18.4% 2% 18.4%;
+    -ms-grid-column-gap:2%;
+    -ms-grid-row-gap:2%;
     height:90%;
     width:90%;
-
-
 }
 
 div.gridItemDiv
@@ -35,6 +39,58 @@ div.gridItemDiv
     height:100%;
     background-color:black;
 }
+
+/*#region Gird For IE */
+.gridContainerDiv > .gridItem1 {
+    -ms-grid-column: 1;
+    -ms-grid-row: 1;
+}
+.gridContainerDiv > .gridItem2
+{
+    -ms-grid-column: 3; 
+    -ms-grid-row: 1;
+}
+.gridContainerDiv > .gridItem3
+{
+    -ms-grid-column: 1; 
+    -ms-grid-row: 3;
+}
+.gridContainerDiv > .gridItem4
+{
+    -ms-grid-column: 3; 
+    -ms-grid-row: 3;
+}
+.gridContainerDiv > .gridItem5
+{
+    -ms-grid-column: 1; 
+    -ms-grid-row: 5;
+}
+.gridContainerDiv > .gridItem6
+{
+    -ms-grid-column: 3; 
+    -ms-grid-row: 5;
+}
+.gridContainerDiv > .gridItem7
+{
+    -ms-grid-column: 1; 
+    -ms-grid-row: 7;
+}
+.gridContainerDiv > .gridItem8
+{
+    -ms-grid-column: 3; 
+    -ms-grid-row: 7;
+}
+.gridContainerDiv > .gridItem9
+{
+    -ms-grid-column: 1; 
+    -ms-grid-row: 9;
+}
+.gridContainerDiv > .gridItem10
+{
+    -ms-grid-column: 3; 
+    -ms-grid-row: 9;
+}
+/*#endregion */
 
 /*#endregion */
 

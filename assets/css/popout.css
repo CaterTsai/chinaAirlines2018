@@ -10,6 +10,13 @@ div.popoutText{
     height:90%;
 }
 
+div.resultDiv{
+    top:10%;
+    height:60%;
+    width:80%;
+}
+
+
 /*#endregion */
 
 /*#region OTHER */
@@ -34,5 +41,11 @@ img.popoutClose{
     width:8%;
 }
 
+img.resultImg{
+    width:100%;
+}
 
+img.saveMsg{
+    width:100%;
+}
 /*#endregion */

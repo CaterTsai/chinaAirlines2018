@@ -8,6 +8,7 @@ div.gameCanvasDiv {
     width: 100%;
     height: 55%;
 }
+
 @media only screen and (min-width: 769px) {
     div.canvasDiv {
         position: absolute;
@@ -20,8 +21,8 @@ div.gameCanvasDiv {
 @media only screen and (min-width: 0px) and (max-width: 768px) {
     div.canvasDiv {
         position: absolute;
-        width: 90vmin;
-        height: 90vmin;
+        width: 45vh;
+        height: 45vh;
         background-color: white;
     }
 }
@@ -47,9 +48,34 @@ div.gameMenuGridContainerDiv {
     display: grid;
     grid-template-columns: 25% 25% 25% 25%;
     grid-template-rows: 100%;
+    display: -ms-grid;
+    -ms-grid-columns: 25% 25% 25% 25%;
+    -ms-grid-rows: 100%;
     text-align: center;
     align-items: center;
 }
+
+/*#region for IE gameMnum */
+.gameMenuGridContainerDiv > .gameMenuItem1 {
+    -ms-grid-column: 1;
+    -ms-grid-row: 1;
+}
+
+.gameMenuGridContainerDiv > .gameMenuItem2{
+    -ms-grid-column: 2;
+    -ms-grid-row: 1;
+}
+
+.gameMenuGridContainerDiv > .gameMenuItem3{
+    -ms-grid-column: 3;
+    -ms-grid-row: 1;
+}
+
+.gameMenuGridContainerDiv > .gameMenuItem4{
+    -ms-grid-column: 4;
+    -ms-grid-row: 1;
+}
+/*#endregion */
 
 div.gameItemDiv {
     position: absolute;
@@ -73,23 +99,92 @@ div.charactorDiv {
 /*#region DIV-DECO */
 div.decoGridContainerDiv {
     display: grid;
-    grid-template-columns: 33% 33% 33%;
+    grid-template-columns: 1fr 1fr 1fr;
+    display: -ms-grid;
+    -ms-grid-columns: 1fr 1fr 1fr;
     width: 90%;
     left: 0;
     text-align: center;
     align-items: center;
 }
+
+/*#region for IE */
+.decoGridContainerDiv > .decoItemCol1{
+    -ms-grid-column:1;
+}
+.decoGridContainerDiv > .decoItemCol2{
+    -ms-grid-column:2;
+}
+.decoGridContainerDiv > .decoItemCol3{
+    -ms-grid-column:3;
+    align-self: center;
+}
+.decoGridContainerDiv > .decoItemRow1 {
+    -ms-grid-row:1;
+}
+.decoGridContainerDiv > .decoItemRow2 {
+    -ms-grid-row:2;
+}
+.decoGridContainerDiv > .decoItemRow3 {
+    -ms-grid-row:3;
+}
+.decoGridContainerDiv > .decoItemRow4 {
+    -ms-grid-row:4;
+}
+.decoGridContainerDiv > .decoItemRow5 {
+    -ms-grid-row:5;
+}
+.decoGridContainerDiv > .decoItemRow6 {
+    -ms-grid-row:6;
+}
+.decoGridContainerDiv > .decoItemRow7 {
+    -ms-grid-row:7;
+}
+/*#endregion */
+
 /*#endregion */
 
 /*#region DIV-WORD */
 div.wordGridContainerDiv {
     display: grid;
     grid-template-columns: 50% 50%;
+    display: -ms-grid;
+    -ms-grid-columns: 50% 50%;
     width: 90%;
     left: 0;
     text-align: center;
     align-items: center;
 }
+
+/*#region for IE */
+.wordGridContainerDiv > .wordItemCol1{
+    -ms-grid-column:1;
+}
+.wordGridContainerDiv > .wordItemCol2{
+    -ms-grid-column:2;
+}
+.wordGridContainerDiv > .wordItemRow1 {
+    -ms-grid-row:1;
+}
+.wordGridContainerDiv > .wordItemRow2 {
+    -ms-grid-row:2;
+}
+.wordGridContainerDiv > .wordItemRow3 {
+    -ms-grid-row:3;
+}
+.wordGridContainerDiv > .wordItemRow4 {
+    -ms-grid-row:4;
+}
+.wordGridContainerDiv > .wordItemRow5 {
+    -ms-grid-row:5;
+}
+.wordGridContainerDiv > .wordItemRow6 {
+    -ms-grid-row:6;
+}
+.wordGridContainerDiv > .wordItemRow7 {
+    -ms-grid-row:7;
+}
+/*#endregion */
 /*#endregion */
 
 /*#region DIV_CHARACTOR */
@@ -152,11 +247,44 @@ div.charactorGridContainerDiv {
     top: 10%;
     display: grid;
     grid-template-columns: 47% 47%;
+    display: -ms-grid;
+    -ms-grid-columns: 47% 47%;
     width: 90%;
     grid-column-gap: 6%;
     text-align: center;
     align-items: center;
 }
+
+/*#region for IE */
+.charactorGridContainerDiv > .charactorItemCol1{
+    -ms-grid-column:1;
+}
+.charactorGridContainerDiv > .charactorItemCol2{
+    -ms-grid-column:2;
+}
+.charactorGridContainerDiv > .charactorItemRow1 {
+    -ms-grid-row:1;
+}
+.charactorGridContainerDiv > .charactorItemRow2 {
+    -ms-grid-row:2;
+}
+.charactorGridContainerDiv > .charactorItemRow3 {
+    -ms-grid-row:3;
+}
+.charactorGridContainerDiv > .charactorItemRow4 {
+    -ms-grid-row:4;
+}
+.charactorGridContainerDiv > .charactorItemRow5 {
+    -ms-grid-row:5;
+}
+.charactorGridContainerDiv > .charactorItemRow6 {
+    -ms-grid-row:6;
+}
+.charactorGridContainerDiv > .charactorItemRow7 {
+    -ms-grid-row:7;
+}
+/*#endregion */
+
 /*#endregion */
 
 /*#region DIV-SHARE */
@@ -172,47 +300,49 @@ div.gameShareGridContainerDiv {
     display: grid;
     top: 20%;
     width: 90%;
-    height: 80%;
-    grid-template-columns: 16.67% 16.67% 16.67% 16.67% 16.67% 16.67%;
+    height: 79%;
+    grid-template-columns: 33.33% 33.33% 33.33%;
     grid-template-rows: 50% 50%;
-    grid-template-areas: "save save fb fb link link"
-                         ". wechat wechat line line .";
+    display: -ms-grid;
+    -ms-grid-columns: 33.33% 33.33% 33.33%;
+    -ms-grid-rows: 50% 50%;
     text-align: center;
     align-items: center;
 }
 
-div.gameShareGridSaveDiv{
-    grid-area:save;
-    height:100%;
+div.gameShareGridItemDiv{
     width:100%;
+    height:100%;
 }
 
-div.gameShareGridFBDiv{
-    grid-area:fb;
-    height:100%;
-    width:100%;
+div.copy-button{
+    display:none;
 }
-div.gameShareGridLinkDiv{
-    grid-area:link;
-    height:100%;
-    width:100%;
+
+/*#region For IE */
+.gameShareGridContainerDiv > .shareItemCol1{
+    -ms-grid-column:1;
 }
-div.gameShareGridWechatDiv{
-    grid-area:wechat;
-    height:100%;
-    width:100%;
+.gameShareGridContainerDiv > .shareItemCol2{
+    -ms-grid-column:2;
 }
-div.gameShareGridLineDiv{
-    grid-area:line;
-    height:100%;
-    width:100%;
+.gameShareGridContainerDiv > .shareItemCol3{
+    -ms-grid-column:3;
 }
+.gameShareGridContainerDiv > .shareItemRow1 {
+    -ms-grid-row:1;
+}
+.gameShareGridContainerDiv > .shareItemRow2 {
+    -ms-grid-row:2;
+}
+
 /*#endregion */
 
 /*#endregion */
+
 /*#region Image */
-img.btnInactive{
-    opacity:0.3;
+img.btnInactive {
+    opacity: 0.3;
 }
 
 img.gameMenuBtn {
@@ -235,21 +365,20 @@ img.charactorItemBtn {
 
 img.charactorHeadGridBtn {
     width: 70%;
-    margin:8%;
+    margin: 8%;
 }
 
 img.charactorClothesGridBtn {
     width: 85%;
-    margin:8%;
+    margin: 8%;
 }
 
 img.gameShareTitle {
-    max-height: 100%;
-    width: 80%;
+    height: 100%;
 }
 
-img.gameShareBtn{
-    height:100%;
+img.gameShareBtn {
+    height: 100%;
 }
 
 /*#endregion */
